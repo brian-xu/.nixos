@@ -28,7 +28,6 @@ in
         age
         ssh-to-age
         pkg-config
-        power-profiles-daemon
         nixfmt
         nerd-fonts.fira-code
         # desktop apps
@@ -40,7 +39,6 @@ in
         thunderbird
         # coding
         git
-        micromamba
         uv
         ruff
         alacritty

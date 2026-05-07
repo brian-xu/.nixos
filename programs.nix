@@ -2,7 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
+    micromamba
   ];
+  environment.shellAliases = {
+    conda = "micromamba";
+  };
 
   programs.zsh = {
     enable = true;
@@ -12,7 +16,12 @@
     ohMyZsh.plugins = [ "git" ];
     ohMyZsh.theme = "frisk";
     syntaxHighlighting.enable = true;
+    interactiveShellInit = ''
+      mkdir -p $MAMBA_ROOT_PREFIX
+      eval "$(micromamba shell hook -s zsh)"
+    '';
   };
+  programs.nix-ld.enable = true;
 
   users.defaultUserShell = pkgs.zsh;
 }
