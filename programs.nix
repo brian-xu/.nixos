@@ -16,10 +16,7 @@
     ohMyZsh.plugins = [ "git" ];
     ohMyZsh.theme = "frisk";
     syntaxHighlighting.enable = true;
-    interactiveShellInit = ''
-      mkdir -p $MAMBA_ROOT_PREFIX
-      eval "$(micromamba shell hook -s zsh)"
-    '';
+    interactiveShellInit = ''eval "$(micromamba shell hook -s zsh)"'';
   };
   programs.nix-ld.enable = true;
 
