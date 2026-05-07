@@ -10,7 +10,8 @@
   environment.sessionVariables = {
     # Use conda-forge channel by default
     # MAMBARC = "${./mambarc.yml}";
-    MAMBA_ROOT_PREFIX = "~/.micromamba";
+    # do this properly at some point
+    MAMBA_ROOT_PREFIX = "/home/brian/.micromamba";
   };
   programs.zsh = {
     enable = true;
