@@ -1,5 +1,7 @@
 # an idiot's attempt at nixos
 
+<img width="645" height="549" alt="image" src="https://github.com/user-attachments/assets/1456c3e4-4de8-44c0-bb3e-c08902f00fa2" />
+
 ## Setup
 
 ### 1. Clone config
