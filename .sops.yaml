@@ -1,0 +1,13 @@
+keys:
+  # Personal break-glass key — generated with age-keygen, private key stored in Bitwarden
+  - &brian age1wmdy6eujyqrp7zd56e35l988rwc84yqmlnpy4hv0u8228z83zsgq9g0ek0
+
+  # Host age key — generated with: ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+  - &nixos age1lme0hz6edca53wq6w5w7sypd9jj0mllffylslaerkrshae4fspzslk6szm
+
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *brian
+          - *nixos

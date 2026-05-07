@@ -1,0 +1,6 @@
+# Never commit unencrypted secrets
+secrets/secrets.yaml
+
+# Nix build artifacts
+result
+result-*
