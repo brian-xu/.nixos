@@ -7,7 +7,6 @@
 let
   lib = pkgs.lib;
   nixos-hardware = builtins.fetchTarball https://github.com/NixOS/nixos-hardware/archive/master.tar.gz;
-  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz;
   sops-nix = builtins.fetchTarball "https://github.com/Mic92/sops-nix/archive/master.tar.gz";
 in
 
@@ -15,7 +14,6 @@ in
   imports =
     [
       (import "${nixos-hardware}/framework/13-inch/7040-amd")
-      (import "${home-manager}/nixos")
       "${sops-nix}/modules/sops"
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -102,6 +100,33 @@ in
     isNormalUser = true;
     description = "Brian";
     extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+      # util
+      sops
+      age
+      ssh-to-age
+      pkg-config
+      framework-tool
+      fw-fanctrl
+      albert
+      power-profiles-daemon
+      # desktop apps
+      bitwarden-desktop
+      floorp-bin
+      slack
+      discord
+      obsidian
+      termsonic
+      thunderbird
+      # coding
+      git
+      micromamba
+      uv
+      ruff
+      alacritty
+      vscode-fhs
+      claude-code
+    ];
   };
 
   # sops secrets — uncomment after running bootstrap sequence in README
@@ -129,42 +154,6 @@ in
     mode = "600";
   };
   
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.users.brian = {pkgs, ...}: {
-    programs.bash.enable = true;
-    home.packages = with pkgs; [
-      # util
-      sops
-      age
-      ssh-to-age
-      pkg-config
-      tailscale
-      framework-tool
-      fw-fanctrl
-      albert
-      power-profiles-daemon
-      # desktop apps
-      bitwarden-desktop
-      floorp-bin
-      slack
-      discord
-      obsidian
-      termsonic
-      thunderbird
-      # coding
-      git
-      micromamba
-      uv
-      ruff
-      alacritty
-      vscode-fhs
-      claude-code
-    ];
-
-    home.stateVersion = "25.11"; # Please read the comment before changing.
-  };
-
   # Install firefox.
   # programs.firefox.enable = true;
 
@@ -233,7 +222,15 @@ in
   services.hardware.bolt.enable = true;
 
   # Use zsh as the default shell
-  programs.zsh.enable = true;
+ programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    ohMyZsh.enable = true;
+    ohMyZsh.plugins = [ "git" ];
+    ohMyZsh.theme = "frisk";
+    syntaxHighlighting.enable = true;
+  };
   users.defaultUserShell = pkgs.zsh;
 
   # Open ports in the firewall.
