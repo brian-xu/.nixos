@@ -113,13 +113,18 @@ in
     owner = "brian";
     mode = "600";
   };
-    sops.secrets.racknerd = {
+  sops.secrets.racknerd = {
     path = "/home/brian/.ssh/racknerd";
     owner = "brian";
     mode = "600";
   };
-    sops.secrets.google_compute_engine = {
+  sops.secrets.google_compute_engine = {
     path = "/home/brian/.ssh/google_compute_engine";
+    owner = "brian";
+    mode = "600";
+  };
+  sops.secrets.brian-1 = {
+    path = "/home/brian/.ssh/brian-1.pem";
     owner = "brian";
     mode = "600";
   };
