@@ -49,6 +49,19 @@ in
 
       programs.plasma.krunner.shortcuts.launch = "Ctrl+Space";
 
+      # KWin compositor: OpenGL 3.1 core profile + nearest-neighbor scaling
+      programs.plasma.configFile."kwinrc"."Compositing"."GLCore" = true;
+      programs.plasma.configFile."kwinrc"."Compositing"."GLTextureFilter" = 0;
+
+      programs.plasma.input.touchpads = [
+        {
+          name = "PIXA3854:00 093A:0274 Touchpad";
+          vendorId = "093a";
+          productId = "0274";
+          naturalScroll = true;
+        }
+      ];
+
       home.stateVersion = "25.11"; # Please read the comment before changing.
     };
 }

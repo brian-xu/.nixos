@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   nixos-hardware = builtins.fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
@@ -8,6 +13,9 @@ in
   imports = [
     "${nixos-hardware}/framework/13-inch/7040-amd"
   ];
+
+  # Switch Pixart touchpad from interrupt to polling to reduce ~157 IRQ/s storm
+  boot.kernelParams = [ "i2c_hid_acpi.polling_mode=1" ];
 
   hardware.sensor.iio.enable = false;
 
