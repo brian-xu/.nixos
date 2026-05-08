@@ -30,6 +30,7 @@ in
         pkg-config
         nixfmt
         nerd-fonts.fira-code
+        ffmpeg
         # desktop apps
         bitwarden-desktop
         floorp-bin

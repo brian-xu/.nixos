@@ -41,5 +41,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  security.sudo.extraConfig = ''
+    Defaults pwfeedback
+  '';
+
   system.stateVersion = "25.11"; # Did you read the comment?
 }
