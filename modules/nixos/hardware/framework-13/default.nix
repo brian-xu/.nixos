@@ -4,15 +4,9 @@
   lib,
   ...
 }:
-
-let
-  nixos-hardware = builtins.fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
-in
-
 {
-  imports = [
-    "${nixos-hardware}/framework/13-inch/7040-amd"
-  ];
+  # nixos-hardware framework-13-7040-amd is loaded at flake level; this module
+  # adds Framework-specific overrides not covered by nixos-hardware.
 
   # Switch Pixart touchpad from interrupt to polling to reduce ~157 IRQ/s storm
   boot.kernelParams = [ "i2c_hid_acpi.polling_mode=1" ];
@@ -36,6 +30,5 @@ in
 
   services.fwupd.enable = true;
 
-  # Enable the bolt protocol for thunderbolt docks
   services.hardware.bolt.enable = true;
 }

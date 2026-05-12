@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   # X11 windowing system — disabled, using Wayland only
   services.xserver.enable = false;
@@ -57,17 +56,4 @@
     };
   };
   services.power-profiles-daemon.enable = false;
-  # services.auto-cpufreq = {
-  #   enable = true;
-  #   settings = {
-  #     battery = {
-  #       governor = "powersave";
-  #       turbo = "never";
-  #     };
-  #     charger = {
-  #       governor = "performance";
-  #       turbo = "auto";
-  #     };
-  #   };
-  # };
 }

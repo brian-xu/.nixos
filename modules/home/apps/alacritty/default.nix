@@ -5,9 +5,7 @@
   ...
 }:
 let
-  themes = (
-    fetchTarball "https://github.com/alacritty/alacritty-theme/archive/40e0c6c8690d1c62f58718fcef8a48eb6077740b.tar.gz"
-  );
+  themes = fetchTarball "https://github.com/alacritty/alacritty-theme/archive/40e0c6c8690d1c62f58718fcef8a48eb6077740b.tar.gz";
 in
 {
   xdg.configFile."alacritty/alacritty.toml".text = ''
