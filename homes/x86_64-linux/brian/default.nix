@@ -23,7 +23,6 @@
     ffmpeg
     # desktop apps
     bitwarden-desktop
-    bitwarden-cli
     slack
     discord
     obsidian

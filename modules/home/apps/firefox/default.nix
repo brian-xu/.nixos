@@ -36,7 +36,10 @@
           };
         };
       };
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      settings = {
+        "browser.toolbars.bookmarks.visibility" = "always";
+      };
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         ublock-origin
         bitwarden
       ];
