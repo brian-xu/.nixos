@@ -5,6 +5,7 @@
   ];
   environment.shellAliases = {
     conda = "micromamba";
+    nixos-rebuild = "nixos-rebuild --flake ~/.nixos#nixos";
   };
   environment.sessionVariables = {
     MAMBA_ROOT_PREFIX = "/home/brian/.micromamba";
@@ -26,7 +27,10 @@
 
   programs.nix-ld.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   users.defaultUserShell = pkgs.zsh;
 }

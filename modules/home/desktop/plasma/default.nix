@@ -14,11 +14,11 @@
   programs.plasma.configFile.kwinrc.TabSwitcher.DesktopMode = 1;
   programs.plasma.configFile.kwinrc.TabSwitcher.ScreenMode = 1;
 
-  programs.plasma.configFile.kdeglobals.General.TerminalApplication = alacritty;
-  programs.plasma.configFile.kdeglobals.General.TerminalService = Alacritty.desktop;
+  programs.plasma.configFile.kdeglobals.General.TerminalApplication = "alacritty";
+  programs.plasma.configFile.kdeglobals.General.TerminalService = "Alacritty.desktop";
 
   programs.plasma.powerdevil = {
-    AC.whenLaptopLidClosed = "nothing";
+    AC.whenLaptopLidClosed = "doNothing";
   };
 
   programs.plasma.input.touchpads = [

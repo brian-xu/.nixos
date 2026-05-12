@@ -51,3 +51,16 @@ ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
 sops updatekeys /home/brian/.nixos/secrets/secrets.yaml
 git -C /home/brian/.nixos add -A && git commit -m "add $(hostname) host key" && git push
 ```
+
+## Maintenance
+
+### Update inputs
+```bash
+# Update all inputs to their latest commits
+nix flake update
+
+# Update a single input (e.g. nixpkgs only)
+nix flake update nixpkgs
+```
+
+Then rebuild to apply: `sudo nixos-rebuild switch`

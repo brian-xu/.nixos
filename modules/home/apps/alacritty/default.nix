@@ -5,7 +5,12 @@
   ...
 }:
 let
-  themes = fetchTarball "https://github.com/alacritty/alacritty-theme/archive/40e0c6c8690d1c62f58718fcef8a48eb6077740b.tar.gz";
+  themes = pkgs.fetchFromGitHub {
+    owner = "alacritty";
+    repo = "alacritty-theme";
+    rev = "40e0c6c8690d1c62f58718fcef8a48eb6077740b";
+    sha256 = "0bj46gf4q84rd9hj31ba5nkkc6lpljh1k7vks2h4ckx144wrvcs7";
+  };
 in
 {
   xdg.configFile."alacritty/alacritty.toml".text = ''
