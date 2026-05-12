@@ -48,7 +48,7 @@
             updates_disabled = true;
           };
 
-          "{d63c220f-08e3-4b08-8e6f-402a1147a40b}" = {
+          "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
             install_url = moz "bitwarden-password-manager";
             installation_mode = "force_installed";
           };
@@ -61,10 +61,25 @@
       isDefault = true;
       search = {
         force = true;
-        default = "ecosia";
-        privateDefault = "ecosia";
+        default = "Startpage";
+        privateDefault = "Startpage";
 
         engines = {
+          "Startpage" = {
+            urls = [
+              {
+                template = "https://www.startpage.com/sp/search";
+                params = [
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            definedAliases = [ "@sp" ];
+          };
+
           "Nix Packages" = {
             urls = [
               {
