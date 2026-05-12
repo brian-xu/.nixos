@@ -1,18 +1,16 @@
 { config, pkgs, ... }:
-
 {
   environment.systemPackages = with pkgs; [
     micromamba
   ];
   environment.shellAliases = {
     conda = "micromamba";
+    nixos-rebuild = "nixos-rebuild --flake ~/.nixos#nixos";
   };
   environment.sessionVariables = {
-    # Use conda-forge channel by default
-    # MAMBARC = "${./mambarc.yml}";
-    # do this properly at some point
     MAMBA_ROOT_PREFIX = "/home/brian/.micromamba";
   };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -26,7 +24,13 @@
       eval "$(micromamba shell hook -s zsh)"
     '';
   };
+
   programs.nix-ld.enable = true;
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   users.defaultUserShell = pkgs.zsh;
 }

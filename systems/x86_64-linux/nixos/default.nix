@@ -1,13 +1,11 @@
-{ config, pkgs, ... }:
-
+{ inputs, config, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
-    ./hardware.nix
-    ./programs.nix
-    ./ssh.nix
-    ./home.nix
-    ./services.nix
+    ../../../modules/nixos/hardware/framework-13
+    ../../../modules/nixos/programs
+    ../../../modules/nixos/services
+    ../../../modules/nixos/security/sops
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -44,6 +42,29 @@
   security.sudo.extraConfig = ''
     Defaults pwfeedback
   '';
+
+  # sops secrets — path relative to this file (../../..) resolves to repo root /secrets/
+  sops.defaultSopsFile = ../../../secrets/secrets.yaml;
+  sops.secrets.ssh_id_ed25519 = {
+    path = "/home/brian/.ssh/id_ed25519";
+    owner = "brian";
+    mode = "600";
+  };
+  sops.secrets.racknerd = {
+    path = "/home/brian/.ssh/racknerd";
+    owner = "brian";
+    mode = "600";
+  };
+  sops.secrets.google_compute_engine = {
+    path = "/home/brian/.ssh/google_compute_engine";
+    owner = "brian";
+    mode = "600";
+  };
+  sops.secrets.brian-1 = {
+    path = "/home/brian/.ssh/brian-1.pem";
+    owner = "brian";
+    mode = "600";
+  };
 
   system.stateVersion = "25.11"; # Did you read the comment?
 }
