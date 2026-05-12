@@ -1,32 +1,58 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper, mpv }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  dbus,
+  mpv,
+  pipewire,
+  wireplumber,
+  cava,
+  makeWrapper,
+}:
 
-stdenv.mkDerivation rec {
+rustPlatform.buildRustPackage rec {
   pname = "ferrosonic";
   version = "0.7.0";
 
-  src = fetchurl {
-    url = "https://github.com/Jamie098/ferrosonic-ng/releases/download/v${version}/ferrosonic-${version}-linux-x86_64";
-    sha256 = "135nz34sz04vb6894f9gsyla6rpbi22a1s3lr81bd653543xyy87";
+  src = fetchFromGitHub {
+    owner = "Jamie098";
+    repo = "ferrosonic-ng";
+    rev = "v${version}";
+    hash = "sha256-AmSZkxQ12SFo8hHfHi7eXr+LF6Z8TCajA1hr9S+ivjk=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
-  buildInputs = [ mpv ];
+  cargoHash = "sha256-NhB6ztyveC73oCwYRCfuuvazl3gYavB7igrRBrhRi9c=";
 
-  dontUnpack = true;
-  dontBuild = true;
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
-  installPhase = ''
-    runHook preInstall
-    install -Dm755 $src $out/bin/ferrosonic
+  buildInputs = [
+    openssl
+    dbus
+    mpv
+    pipewire
+    wireplumber
+  ];
+
+  postInstall = ''
     wrapProgram $out/bin/ferrosonic \
-      --prefix PATH : ${lib.makeBinPath [ mpv ]}
-    runHook postInstall
+      --prefix PATH : ${
+        lib.makeBinPath [
+          mpv
+          cava
+        ]
+      }
   '';
 
   meta = {
     description = "Terminal music player";
     homepage = "https://github.com/Jamie098/ferrosonic-ng";
-    platforms = [ "x86_64-linux" ];
+    license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
     mainProgram = "ferrosonic";
   };
 }
