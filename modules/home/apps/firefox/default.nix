@@ -9,7 +9,7 @@
       BackgroundAppUpdate = false;
 
       # Feature Disabling
-      DisableBuiltinPDFViewer = true;
+      DisableBuiltinPDFViewer = false;
       DisableFirefoxStudies = true;
       DisableFirefoxAccounts = true;
       DisableFirefoxScreenshots = true;
@@ -31,7 +31,7 @@
       # UI and Behavior
       DisplayMenuBar = "never";
       DontCheckDefaultBrowser = true;
-      HardwareAcceleration = false;
+      HardwareAcceleration = true;
       OfferToSaveLogins = false;
 
       # Extensions
