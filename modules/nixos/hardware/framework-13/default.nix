@@ -28,6 +28,10 @@
   security.pam.services.sddm.fprintAuth = true;
   security.pam.services.kde.fprintAuth = lib.mkForce true;
 
+  security.pam.services.login.rules.auth.fprintd.settings.timeout = 5;
+  security.pam.services.sddm.rules.auth.fprintd.settings.timeout = 5;
+  security.pam.services.kde.rules.auth.fprintd.settings.timeout = 5;
+
   services.fwupd.enable = true;
 
   services.hardware.bolt.enable = true;
