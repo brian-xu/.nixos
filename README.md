@@ -7,19 +7,17 @@
 ```
 flake.nix
 modules/
-  nixos/
-    hardware/framework-13/   # Framework 13 AMD 7040 overrides
-    programs/                # zsh, micromamba, nix-ld
-    services/                # KDE/SDDM, pipewire, tailscale, TLP
-    security/                # openssh + sops age key config
-  home/
-    apps/                    # desktop apps with declarative configs
-    desktop/plasma/          # KDE Plasma 6 settings
-pkgs/
-  ferrosonic/                # terminal music player derivation
-  krohnkite/                 # kde tiling manager
-systems/x86_64-linux/nixos/  # host config: boot, networking, users, sops secrets
-homes/brian/    # user packages
+  configs/                   # declarative configs
+    apps/                    # app-specific configs
+    desktops/                # de-specific configs
+  programs/                  # generally useful programs
+  services/                  # generic + power management services
+  security/                  # openssh + sops age key config
+lib/                         # library functions
+pkgs/                        # custom package derivations
+nixos/                       # basic linux/nix config options
+homes/                       # user config via home-manager
+hosts/                       # host config: hardware specific
 secrets/                     # SOPS/age encrypted secrets (safe to commit)
 ```
 
@@ -64,4 +62,4 @@ nix flake update
 nix flake update nixpkgs
 ```
 
-Then rebuild to apply: `sudo nixos-rebuild switch`
+Then rebuild to apply: `sudo nixos-rebuild --flake ~/.nixos#framework switch`

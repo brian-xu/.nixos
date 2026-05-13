@@ -1,3 +1,4 @@
+# taken from https://github.com/taj-ny/nix-config/blob/main/lib/default.nix
 {
   lib,
   ...
