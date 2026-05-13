@@ -23,6 +23,7 @@ homes/brian/    # user packages
 secrets/                     # SOPS/age encrypted secrets (safe to commit)
 ```
 
+
 ## Setup
 
 ### 1. Clone config

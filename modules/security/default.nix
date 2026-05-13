@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 {
   # sops-nix module is loaded at flake level; this configures the age key sources.
   # Host-specific secrets (defaultSopsFile, sops.secrets.*) live in the system config.

@@ -3,7 +3,7 @@
   fetchFromGitHub,
   kdePackages,
   lib,
-  typescript
+  typescript,
 }:
 
 buildNpmPackage rec {

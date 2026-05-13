@@ -1,5 +1,7 @@
 {
   description = "NixOS configuration";
+  nixConfig.experimental-features = "nix-command flakes";
+  nixConfig.extra-experimental-features = [ "pipe-operators" ];
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -17,10 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -31,27 +29,37 @@
       nixos-hardware,
       sops-nix,
       plasma-manager,
-      nur,
       ...
     }@inputs:
+    let
+      lib = nixpkgs.lib.extend (_: _: import ./lib { lib = nixpkgs.lib; });
+      systems = [ "x86_64-linux" ];
+    in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          nixos-hardware.nixosModules.framework-13-7040-amd
-          sops-nix.nixosModules.sops
-          home-manager.nixosModules.home-manager
-          ./systems/x86_64-linux/nixos/default.nix
-          {
-            nixpkgs.overlays = [ nur.overlays.default ];
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.brian = import ./homes/brian/default.nix;
-          }
-        ];
+      nixosConfigurations = {
+        framework = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            lib = lib.extend (_: _: inputs.home-manager.lib);
+          };
+          modules = [
+            nixos-hardware.nixosModules.framework-13-7040-amd
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+            ./nixos
+            ./hosts/framework-13/configuration.nix
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+              home-manager.sharedModules = [
+                plasma-manager.homeModules.plasma-manager
+              ];
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.brian = import ./homes/brian/default.nix;
+            }
+          ];
+        };
       };
     };
 }

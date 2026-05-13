@@ -30,6 +30,7 @@ in
     bindings = [
       { key = "N", mods = "Control", action = "SpawnNewInstance" },
       { key = "Q", mods = "Control", action = "Quit" },
+      { key = "W", mods = "Control", action = "Quit" },
       { key = "C", mods = "Control | Shift", action = "Copy" },
       { key = "V", mods = "Control", action = "Paste" }
     ]

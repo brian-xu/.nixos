@@ -1,7 +1,10 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 {
   programs.firefox = {
-    enable = true;
 
     policies = {
       # Updates & Background Services

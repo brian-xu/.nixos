@@ -1,15 +1,17 @@
 {
   inputs,
   config,
+  lib,
   pkgs,
   ...
 }:
 {
   imports = [
-    ../../modules/home/apps/alacritty.nix
-    ../../modules/home/apps/firefox.nix
-    ../../modules/home/desktops/plasma
+    ../../modules/configs/apps
+    ../../modules/configs/desktops/plasma
   ];
+
+  programs.firefox.enable = true;
 
   home.packages = with pkgs; [
     # util
@@ -35,6 +37,17 @@
     vscode-fhs
     claude-code
   ];
+
+  programs.git = {
+    enable = true;
+    settings = {
+      user = {
+        name = "Brian Xu";
+        email = "brian@brian-xu.com";
+      };
+    };
+    extraConfig.push.autoSetupRemote = true;
+  };
 
   home.stateVersion = "25.11"; # Please read the comment before changing.
 }
