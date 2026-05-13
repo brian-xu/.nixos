@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 {
+  home.packages = [
+    (pkgs.callPackage ../../../../pkgs/krohnkite.nix { })
+  ];
+
   programs.plasma.enable = true;
 
   programs.plasma.krunner.shortcuts.launch = "Ctrl+Space";
@@ -13,9 +17,12 @@
   programs.plasma.configFile.kwinrc.TabSwitcher.ActivitiesMode = 1;
   programs.plasma.configFile.kwinrc.TabSwitcher.DesktopMode = 1;
   programs.plasma.configFile.kwinrc.TabSwitcher.ScreenMode = 1;
+  
+  programs.plasma.configFile.kwinrc.Plugins.krohnkiteEnabled = true;
 
   programs.plasma.configFile.kdeglobals.General.TerminalApplication = "alacritty";
   programs.plasma.configFile.kdeglobals.General.TerminalService = "Alacritty.desktop";
+  
 
   programs.plasma.powerdevil = {
     AC.whenLaptopLidClosed = "doNothing";

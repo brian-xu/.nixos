@@ -2,6 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     micromamba
+    nixd
   ];
   environment.shellAliases = {
     conda = "micromamba";

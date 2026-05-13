@@ -11,15 +11,15 @@ modules/
     hardware/framework-13/   # Framework 13 AMD 7040 overrides
     programs/                # zsh, micromamba, nix-ld
     services/                # KDE/SDDM, pipewire, tailscale, TLP
-    security/sops/           # openssh + sops age key config
+    security/                # openssh + sops age key config
   home/
-    apps/alacritty/          # kanagawa theme, FiraCode
-    apps/firefox/            # NUR extensions, Nix search engines
+    apps/                    # desktop apps with declarative configs
     desktop/plasma/          # KDE Plasma 6 settings
-packages/
+pkgs/
   ferrosonic/                # terminal music player derivation
+  krohnkite/                 # kde tiling manager
 systems/x86_64-linux/nixos/  # host config: boot, networking, users, sops secrets
-homes/x86_64-linux/brian/    # user packages
+homes/brian/    # user packages
 secrets/                     # SOPS/age encrypted secrets (safe to commit)
 ```
 

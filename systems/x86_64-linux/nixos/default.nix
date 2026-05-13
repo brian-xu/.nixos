@@ -5,7 +5,7 @@
     ../../../modules/nixos/hardware/framework-13
     ../../../modules/nixos/programs
     ../../../modules/nixos/services
-    ../../../modules/nixos/security/sops
+    ../../../modules/nixos/security
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -43,7 +43,7 @@
     Defaults pwfeedback
   '';
 
-  # sops secrets — path relative to this file (../../..) resolves to repo root /secrets/
+  # sops secrets
   sops.defaultSopsFile = ../../../secrets/secrets.yaml;
   sops.secrets.ssh_id_ed25519 = {
     path = "/home/brian/.ssh/id_ed25519";

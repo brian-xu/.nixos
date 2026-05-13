@@ -49,7 +49,7 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
             home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.brian = import ./homes/x86_64-linux/brian/default.nix;
+            home-manager.users.brian = import ./homes/brian/default.nix;
           }
         ];
       };

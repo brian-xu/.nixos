@@ -6,13 +6,12 @@
 }:
 {
   imports = [
-    ../../../modules/home/apps/alacritty
-    ../../../modules/home/apps/firefox
-    ../../../modules/home/desktop/plasma
+    ../../modules/home/apps/alacritty.nix
+    ../../modules/home/apps/firefox.nix
+    ../../modules/home/desktops/plasma
   ];
 
   home.packages = with pkgs; [
-    (pkgs.callPackage ../../../packages/ferrosonic { })
     # util
     sops
     age
@@ -22,6 +21,7 @@
     nerd-fonts.fira-code
     ffmpeg
     # desktop apps
+    (pkgs.callPackage ../../pkgs/ferrosonic.nix { })
     bitwarden-desktop
     slack
     discord
