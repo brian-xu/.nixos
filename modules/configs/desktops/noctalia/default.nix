@@ -1,4 +1,9 @@
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 {
   programs.niri.enable = true;
 
@@ -8,6 +13,6 @@
     feh
     (callPackage ../../../../pkgs/dinky.nix { })
     vlc
-    okular
+    kdePackages.okular
   ];
 }
