@@ -5,12 +5,6 @@
   ...
 }:
 {
-  imports = [
-    inputs.noctalia.nixosModules.default
-  ];
-
-  programs.niri.enable = true;
-
   services.displayManager.ly.enable = true;
 
   security.rtkit.enable = true;
