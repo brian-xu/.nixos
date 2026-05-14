@@ -9,8 +9,8 @@
     ./hardware-configuration.nix
     ./hardware-overrides.nix
     ../../modules/programs
-    ../../modules/configs/desktops/plasma
-    ../../modules/services/plasma.nix
+    ../../modules/configs/desktops/noctalia
+    ../../modules/services/noctalia.nix
     ../../modules/services/power-management.nix
     ../../modules/security
     ../../homes/brian/ssh-keys.nix

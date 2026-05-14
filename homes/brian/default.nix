@@ -8,7 +8,6 @@
 {
   imports = [
     ../../modules/configs/apps
-    ../../modules/configs/desktops/plasma
   ];
 
   programs.firefox.enable = true;
