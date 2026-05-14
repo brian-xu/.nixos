@@ -7,7 +7,7 @@
 {
   programs.niri.enable = true;
 
-  home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     yazi
     pcmanfm
     feh

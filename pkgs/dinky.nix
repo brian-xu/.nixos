@@ -15,7 +15,7 @@ buildGoModule rec {
     hash = "sha256-3xPaLKryiflOZ6zxF6X/WPwtwPAYHAJfsFGfe2cfatQ=";
   };
 
-  vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  vendorHash = "sha256-alW/5Wg0Ejfmsj9kUC7UKmVUzQmEgclOlWNTUG4sIFU=";
 
   meta = {
     description = "A simple terminal text editor with familiar GUI-style controls";
