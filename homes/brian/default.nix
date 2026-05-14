@@ -7,7 +7,10 @@
 }:
 {
   imports = [
+    inputs.noctalia.homeModules.default
     ../../modules/configs/apps
+    ../../modules/configs/desktops/noctalia
+    ../../modules/services/noctalia.nix
   ];
 
   programs.firefox.enable = true;
@@ -44,6 +47,10 @@
       };
     };
     extraConfig.push.autoSetupRemote = true;
+  };
+
+  programs.noctalia-shell = {
+    enable = true;
   };
 
   home.stateVersion = "25.11"; # Please read the comment before changing.
