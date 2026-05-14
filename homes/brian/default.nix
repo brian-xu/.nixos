@@ -30,7 +30,6 @@
     obsidian
     thunderbird
     # coding
-    git
     uv
     ruff
     alacritty
@@ -39,7 +38,6 @@
   ];
 
   programs.git = {
-    enable = true;
     settings = {
       user = {
         name = "Brian Xu";

@@ -9,6 +9,9 @@
     nixd
   ];
   environment.shellAliases.conda = "micromamba";
+
+  programs.git.enable = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;

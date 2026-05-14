@@ -1,7 +1,5 @@
 {
   description = "NixOS configuration";
-  nixConfig.experimental-features = "nix-command flakes";
-  nixConfig.extra-experimental-features = [ "pipe-operators" ];
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -33,7 +31,6 @@
     }@inputs:
     let
       lib = nixpkgs.lib.extend (_: _: import ./lib { lib = nixpkgs.lib; });
-      systems = [ "x86_64-linux" ];
     in
     {
       nixosConfigurations = {

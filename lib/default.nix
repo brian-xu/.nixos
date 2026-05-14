@@ -6,8 +6,7 @@
 {
   allExceptThisDefault =
     dir:
-    (builtins.readDir dir)
-    |> (attrs: builtins.removeAttrs attrs [ "default.nix" ])
-    |> builtins.attrNames
-    |> map (entry: "${toString dir}/${entry}");
+    map (entry: "${toString dir}/${entry}") (
+      builtins.attrNames (builtins.removeAttrs (builtins.readDir dir) [ "default.nix" ])
+    );
 }

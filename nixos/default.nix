@@ -1,6 +1,7 @@
 { ... }:
 {
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
+  boot.loader.limine.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos";
@@ -41,8 +42,13 @@
     };
     settings = {
       auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
   };
+
   nixpkgs = {
     config = {
       allowUnfree = true;
