@@ -16,7 +16,7 @@
 
   home.packages = with pkgs; [
     yazi
-    pcmanfm
+    xfce.thunar
     feh
     (callPackage ../../../../pkgs/dinky.nix { })
     vlc
