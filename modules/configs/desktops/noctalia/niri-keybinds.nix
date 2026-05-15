@@ -25,8 +25,8 @@ in
     "super+Space".action.spawn = noctalia "launcher toggle";
     "super+Return".action = spawn "alacritty";
 
-    "super+S".action = set-column-width "-10%";
-    "super+D".action = set-column-width "+10%";
+    "super+S".action = set-column-width "-25%";
+    "super+D".action = set-column-width "+25%";
 
     "super+WheelScrollDown" = {
       action = focus-column-right;
