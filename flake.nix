@@ -58,6 +58,7 @@
               home-manager.sharedModules = [
                 plasma-manager.homeModules.plasma-manager
                 inputs.niri.homeModules.niri
+                inputs.noctalia.homeModules.default
               ];
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.brian = import ./homes/brian/default.nix;

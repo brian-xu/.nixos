@@ -20,6 +20,13 @@
     variant = "";
   };
 
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    config.common.default = "*";
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
   services.printing.enable = true;
   services.tailscale.enable = true;
 }

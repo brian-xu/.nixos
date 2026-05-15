@@ -4,21 +4,10 @@
   pkgs,
   ...
 }:
-let
-  themes = pkgs.fetchFromGitHub {
-    owner = "alacritty";
-    repo = "alacritty-theme";
-    rev = "40e0c6c8690d1c62f58718fcef8a48eb6077740b";
-    sha256 = "0bj46gf4q84rd9hj31ba5nkkc6lpljh1k7vks2h4ckx144wrvcs7";
-  };
-in
 {
   xdg.configFile."alacritty/alacritty.toml".text = ''
 
     [general]
-    import = [
-      "${themes}/themes/kanagawa_wave.toml"
-    ]
 
     [env]
     TERM = "xterm-256color"
@@ -41,7 +30,7 @@ in
     [window]
     decorations = "buttonless"
     dynamic_padding = false
-    opacity = 0.8
+    opacity = 1.0
     option_as_alt = "Both"
 
     [window.padding]

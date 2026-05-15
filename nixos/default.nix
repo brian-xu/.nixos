@@ -48,11 +48,6 @@
     };
   };
 
-  environment.pathsToLink = [
-    "/share/applications"
-    "/share/xdg-desktop-portal"
-  ];
-
   nixpkgs = {
     config = {
       allowUnfree = true;

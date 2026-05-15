@@ -1,8 +1,4 @@
 {
-  ...
-}:
-
-{
   programs.niri.settings.outputs = {
     "DP-10" = {
       mode = {

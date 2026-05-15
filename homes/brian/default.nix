@@ -7,7 +7,6 @@
 }:
 {
   imports = [
-    inputs.noctalia.homeModules.default
     ../../modules/configs/apps
     ../../modules/configs/desktops/noctalia
   ];

@@ -1,8 +1,4 @@
 {
-  ...
-}:
-
-{
   programs.niri.settings.environment = {
     CLUTTER_BACKEND = "wayland";
     GDK_BACKEND = "wayland,x11";
