@@ -11,7 +11,7 @@
   programs.niri = {
     enable = true;
     package = pkgs.niri;
-    settings.hotkey-overlay.skip-at-startup = false; # true;
+    settings.hotkey-overlay.skip-at-startup = true;
   };
 
   home.packages = with pkgs; [

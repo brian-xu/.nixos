@@ -3,36 +3,52 @@
   ...
 }:
 {
-  xdg.configFile."alacritty/alacritty.toml".text = ''
+  programs.alacritty.enable = true;
+  programs.alacritty.settings = {
+    general.import = [ "./themes/noctalia.toml" ];
+    env.TERM = "xterm-256color";
+    font.normal.family = "FiraCode Nerd Font";
 
-    [general]
+    keyboard.bindings = [
+      {
+        key = "N";
+        mods = "Control";
+        action = "SpawnNewInstance";
+      }
+      {
+        key = "Q";
+        mods = "Control";
+        action = "Quit";
+      }
+      {
+        key = "C";
+        mods = "Control|Shift";
+        action = "Copy";
+      }
+      {
+        key = "V";
+        mods = "Control";
+        action = "Paste";
+      }
+    ];
 
-    [env]
-    TERM = "xterm-256color"
+    cursor = {
+      style = {
+        shape = "beam";
+        blinking = "always";
+      };
+    };
 
-    [font.normal]
-    family = "FiraCode Nerd Font"
+    window = {
+      decorations = "buttonless";
+      dynamic_padding = false;
+      opacity = 1.0;
+      option_as_alt = "Both";
 
-    [keyboard]
-    bindings = [
-      { key = "N", mods = "Control", action = "SpawnNewInstance" },
-      { key = "Q", mods = "Control", action = "Quit" },
-      { key = "W", mods = "Control", action = "Quit" },
-      { key = "C", mods = "Control | Shift", action = "Copy" },
-      { key = "V", mods = "Control", action = "Paste" }
-    ]
-
-    [cursor]
-    style = {shape = "beam", blinking = "always"}
-
-    [window]
-    decorations = "buttonless"
-    dynamic_padding = false
-    opacity = 1.0
-    option_as_alt = "Both"
-
-    [window.padding]
-    x = 25
-    y = 20
-  '';
+      padding = {
+        x = 25;
+        y = 20;
+      };
+    };
+  };
 }

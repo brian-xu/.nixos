@@ -29,7 +29,6 @@
     # coding
     uv
     ruff
-    alacritty
     vscode-fhs
     claude-code
   ];
