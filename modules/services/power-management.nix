@@ -3,16 +3,18 @@
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    powertop
-  ];
-
   powerManagement = {
     enable = true;
     powertop.enable = true;
   };
 
-  services.upower.enable = true;
+  services.upower = {
+    enable = true;
+    percentageLow = 15;
+    percentageCritical = 5;
+    percentageAction = 4;
+    criticalPowerAction = "Hibernate";
+  };
 
   services.tlp = {
     enable = true;
