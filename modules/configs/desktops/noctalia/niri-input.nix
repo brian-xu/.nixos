@@ -17,6 +17,5 @@
       accel-profile = "adaptive";
     };
     focus-follows-mouse.enable = true;
-    warp-mouse-to-focus.enable = false;
   };
 }

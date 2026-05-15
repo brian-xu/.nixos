@@ -17,15 +17,18 @@ let
 in
 {
   programs.niri.settings.binds = with config.lib.niri.actions; {
-    "super+q".action = close-window;
-    "super+f".action = fullscreen-window;
-    "super+t".action = toggle-window-floating;
+    "super+Q".action = close-window;
+    "super+F".action = maximize-window-to-edges;
+    "super+T".action = toggle-window-floating;
 
     "super+L".action.spawn = noctalia "lockScreen lock";
     "super+Space".action.spawn = noctalia "launcher toggle";
+    "super+Return".action = spawn "alacritty";
 
     "super+WheelScrollDown".action = focus-column-right;
     "super+WheelScrollUp".action = focus-column-left;
+    "super+Shift+WheelScrollDown".action = focus-workspace-down;
+    "super+Shift+WheelScrollUp".action = focus-workspace-up;
 
     "super+Left".action = focus-column-left;
     "super+Right".action = focus-column-right;

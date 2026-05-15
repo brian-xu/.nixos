@@ -57,6 +57,7 @@
               home-manager.backupFileExtension = "bak";
               home-manager.sharedModules = [
                 plasma-manager.homeModules.plasma-manager
+                inputs.niri.homeModules.niri
               ];
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.brian = import ./homes/brian/default.nix;

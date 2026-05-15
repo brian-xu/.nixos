@@ -6,9 +6,7 @@
   ...
 }:
 {
-  imports = [
-    inputs.niri.homeModules.niri
-  ] ++ lib.allExceptThisDefault ./. ;
+  imports = lib.allExceptThisDefault ./.;
 
   programs.noctalia-shell.enable = true;
 
@@ -26,5 +24,7 @@
     vlc
     kdePackages.okular
     xwayland-satellite
+    gscreenshot
+    grim
   ];
 }

@@ -10,7 +10,6 @@
     inputs.noctalia.homeModules.default
     ../../modules/configs/apps
     ../../modules/configs/desktops/noctalia
-    ../../modules/configs/desktops/plasma
   ];
 
   programs.firefox.enable = true;

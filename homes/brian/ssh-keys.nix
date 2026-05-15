@@ -1,4 +1,3 @@
-{ ... }:
 {
   # sops secrets
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
