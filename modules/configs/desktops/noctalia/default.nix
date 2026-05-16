@@ -14,8 +14,6 @@
     settings.hotkey-overlay.skip-at-startup = true;
   };
 
-  programs.hyprlock.enable = true;
-
   home.packages = with pkgs; [
     # daemons
     udiskie

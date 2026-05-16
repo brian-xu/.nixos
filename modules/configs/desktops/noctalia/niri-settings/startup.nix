@@ -27,7 +27,7 @@
       command = [
         "swayidle"
         "before-sleep"
-        "hyprlock"
+        "noctalia-shell ipc call lockScreen lock"
       ];
     }
   ];
