@@ -14,15 +14,26 @@
     settings.hotkey-overlay.skip-at-startup = true;
   };
 
+  programs.hyprlock.enable = true;
+
   home.packages = with pkgs; [
+    # daemons
+    udiskie
+    swayidle
+    xwayland-satellite
+    # commands
+    grim
+    pwvucontrol
+    cliphist
+    wl-clipboard
+    wl-clip-persist
+    # desktop apps
+    (callPackage ../../../../pkgs/dinky.nix { })
+    feh
+    vlc
     yazi
     xfce.thunar
-    feh
-    (callPackage ../../../../pkgs/dinky.nix { })
-    vlc
-    kdePackages.okular
-    xwayland-satellite
     gscreenshot
-    grim
+    kdePackages.okular
   ];
 }

@@ -13,14 +13,6 @@
       bigclock = "en";
       bigclock_seconds = true;
       clear_password = false;
-      bg = "0x00212337";
-      border_fg = "0x00a48cf2";
-      error_bg = "0x00212337";
-      error_fg = "0x01f16c75";
-      fg = "0x0039ddfd";
-      cmatrix_fg = "0x0037f499";
-      gameoflife_fg = "0x0037f499";
-      cmatrix_head_col = "0x01ffffff";
       default_input = "password";
     };
   };

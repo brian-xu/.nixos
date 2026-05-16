@@ -54,9 +54,15 @@ in
     "super+Shift+Right".action = move-column-right;
     "super+Shift+Down".action = move-column-to-workspace-down;
     "super+Shift+Up".action = move-column-to-workspace-up;
-  };
 
-  programs.niri.settings.switch-events = with config.lib.niri.actions; {
-    lid-close.action.spawn = noctalia "lockScreen lock";
+    # multimedia keys
+    "XF86AudioMute".action.spawn = noctalia "volume muteOutput"; # output mute
+    "XF86AudioLowerVolume".action.spawn = noctalia "volume decrease"; # output decrease
+    "XF86AudioRaiseVolume".action.spawn = noctalia "volume increase"; # output increase
+    "XF86AudioPrev".action.spawn = noctalia "media previous";
+    "XF86AudioPlay".action.spawn = noctalia "media playPause";
+    "XF86AudioNext".action.spawn = noctalia "media next";
+    "XF86MonBrightnessDown".action.spawn = noctalia "brightness decrease";
+    "XF86MonBrightnessUp".action.spawn = noctalia "brightness increase";
   };
 }

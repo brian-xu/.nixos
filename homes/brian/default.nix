@@ -26,6 +26,7 @@
     discord
     obsidian
     thunderbird
+    blender
     # coding
     uv
     ruff

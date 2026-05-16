@@ -34,4 +34,8 @@
   services.fwupd.enable = true;
 
   services.hardware.bolt.enable = true;
+
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{power/wakeup}="disabled"
+  '';
 }
