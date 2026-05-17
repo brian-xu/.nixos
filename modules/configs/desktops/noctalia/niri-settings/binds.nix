@@ -18,15 +18,15 @@ in
 {
   programs.niri.settings.binds = with config.lib.niri.actions; {
     "super+Q".action = close-window;
-    "super+F".action = maximize-window-to-edges;
+    "super+F".action = expand-column-to-available-width;
     "super+T".action = toggle-window-floating;
 
     "super+L".action.spawn = noctalia "lockScreen lock";
     "super+Space".action.spawn = noctalia "launcher toggle";
     "super+Return".action = spawn "alacritty";
 
-    "super+S".action = set-column-width "-33%";
-    "super+D".action = set-column-width "+33%";
+    "super+S".action = set-column-width "-34%";
+    "super+D".action = set-column-width "+34%";
 
     "super+WheelScrollDown" = {
       action = focus-column-right;
