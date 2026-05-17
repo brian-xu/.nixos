@@ -4,7 +4,7 @@
 }:
 {
   services.logind.settings.Login = {
-    HandleLidSwitch = "suspend-then-hibernate";
+    HandleLidSwitch = "suspend";
     HandleLidSwitchDocked = "ignore";
     HandleLidSwitchExternalPower = "suspend";
   };

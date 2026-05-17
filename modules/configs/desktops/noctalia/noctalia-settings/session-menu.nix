@@ -26,7 +26,7 @@
         action = "hibernate";
         command = "";
         countdownEnabled = true;
-        enabled = true;
+        enabled = false;
         keybind = "3";
       }
       {

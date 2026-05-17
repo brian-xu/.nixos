@@ -15,7 +15,7 @@
     lockScreenAnimations = false;
     lockOnSuspend = true;
     showSessionButtonsOnLockScreen = true;
-    showHibernateOnLockScreen = true;
+    showHibernateOnLockScreen = false;
     enableLockScreenMediaControls = false;
     enableShadows = true;
     enableBlurBehind = true;

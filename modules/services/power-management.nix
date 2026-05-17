@@ -13,7 +13,7 @@
     percentageLow = 15;
     percentageCritical = 5;
     percentageAction = 4;
-    criticalPowerAction = "Hibernate";
+    criticalPowerAction = "PowerOff";
   };
 
   services.tlp = {
