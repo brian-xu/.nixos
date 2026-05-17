@@ -17,10 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri.url = "github:sodiboo/niri-flake";
-    sysc-greet = {
-      url = "github:Nomadcxx/sysc-greet";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -32,7 +28,6 @@
       sops-nix,
       noctalia,
       niri,
-      sysc-greet,
       ...
     }@inputs:
     let
@@ -46,10 +41,10 @@
             lib = lib.extend (_: _: inputs.home-manager.lib);
           };
           modules = [
+            { nixpkgs.overlays = (import ./overlays); }
             nixos-hardware.nixosModules.framework-13-7040-amd
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
-            sysc-greet.nixosModules.default
             ./nixos
             ./hosts/framework-13/configuration.nix
             {

@@ -5,10 +5,14 @@
   ...
 }:
 {
-  services.greetd.enable = true;
-  services.sysc-greet = {
+  services.greetd = {
     enable = true;
-    compositor = "niri";
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri";
+        user = "greeter";
+      };
+    };
   };
 
   security.rtkit.enable = true;
