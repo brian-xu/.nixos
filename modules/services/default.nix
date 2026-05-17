@@ -5,16 +5,10 @@
   ...
 }:
 {
-  services.displayManager.ly = {
+  services.greetd.enable = true;
+  services.sysc-greet = {
     enable = true;
-    settings = {
-      animation = "gameoflife";
-      asterisk = "0x2022";
-      bigclock = "en";
-      bigclock_seconds = true;
-      clear_password = false;
-      default_input = "password";
-    };
+    compositor = "niri";
   };
 
   security.rtkit.enable = true;
