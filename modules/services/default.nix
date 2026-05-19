@@ -33,4 +33,8 @@
 
   services.printing.enable = true;
   services.tailscale.enable = true;
+
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
+  services.udisks2.enable = true;
 }

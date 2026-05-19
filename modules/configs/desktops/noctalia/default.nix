@@ -29,8 +29,22 @@
     feh
     vlc
     yazi
-    xfce.thunar
     gscreenshot
     kdePackages.okular
+    # file manager
+    kdePackages.qtsvg
+    kdePackages.dolphin # This is the actual dolphin package
+    kdePackages.kio # needed since 25.11
+    kdePackages.kio-fuse # to mount remote filesystems via FUSE
+    kdePackages.kio-extras # extra protocols support (sftp, fish and more)
   ];
+
+  services.udiskie = {
+    enable = true;
+    settings = {
+      program_options = {
+        file_manager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
+      };
+    };
+  };
 }
