@@ -2,6 +2,7 @@
   # boot.loader.systemd-boot.enable = true;
   boot.loader.limine.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 0;
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;

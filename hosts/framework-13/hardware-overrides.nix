@@ -24,8 +24,8 @@
 
   services.fprintd.enable = true;
   security.pam.services.login.fprintAuth = true;
-  security.pam.services.sddm.fprintAuth = true;
-  security.pam.services.kde.fprintAuth = lib.mkForce true;
+  # security.pam.services.sddm.fprintAuth = true;
+  # security.pam.services.kde.fprintAuth = lib.mkForce true;
 
   services.fwupd.enable = true;
 
