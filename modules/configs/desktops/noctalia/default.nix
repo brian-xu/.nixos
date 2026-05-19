@@ -7,11 +7,12 @@
   imports = lib.allExceptThisDefault ./.;
 
   programs.noctalia-shell.enable = true;
-
   programs.niri = {
     enable = true;
     package = pkgs.niri;
   };
+
+  programs.yazi.enable = true;
 
   home.packages = with pkgs; [
     # daemons
@@ -28,7 +29,6 @@
     (callPackage ../../../../pkgs/dinky.nix { })
     feh
     vlc
-    yazi
     gscreenshot
     kdePackages.okular
     # file manager

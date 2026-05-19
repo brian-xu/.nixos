@@ -16,10 +16,11 @@
   hardware.bluetooth.powerOnBoot = true;
 
   hardware.enableRedistributableFirmware = true;
+  hardware.fw-fanctrl.enable = false;
 
   environment.systemPackages = with pkgs; [
     framework-tool
-    fw-fanctrl
+    framework-tool-tui
   ];
 
   services.fprintd.enable = true;
