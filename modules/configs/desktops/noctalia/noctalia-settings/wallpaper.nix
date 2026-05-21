@@ -1,8 +1,12 @@
 {
+  pkgs,
+  ...
+}:
+{
   programs.noctalia-shell.settings.wallpaper = {
     enabled = true;
     overviewEnabled = false;
-    directory = "/home/brian/Pictures/Wallpapers";
+    directory = "/nix/store/";
     monitorDirectories = [ ];
     enableMultiMonitorDirectories = false;
     showHiddenFiles = false;

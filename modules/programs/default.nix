@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     micromamba
     nixd
+    fastfetch
   ];
   environment.shellAliases.conda = "micromamba";
 

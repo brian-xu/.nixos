@@ -16,7 +16,7 @@
   hardware.bluetooth.powerOnBoot = true;
 
   hardware.enableRedistributableFirmware = true;
-  hardware.fw-fanctrl.enable = false;
+  hardware.fw-fanctrl.enable = true;
 
   environment.systemPackages = with pkgs; [
     framework-tool
@@ -25,6 +25,7 @@
 
   services.fprintd.enable = true;
   security.pam.services.login.fprintAuth = true;
+  security.pam.services.login.rules.auth.fprintd.settings.timeout = 30;
   # security.pam.services.sddm.fprintAuth = true;
   # security.pam.services.kde.fprintAuth = lib.mkForce true;
 

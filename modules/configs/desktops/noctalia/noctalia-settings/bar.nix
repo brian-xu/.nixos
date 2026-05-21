@@ -129,6 +129,9 @@
           pinned = [ ];
         }
         {
+          id = "plugin:fb27f8:fw-fanctrl";
+        }
+        {
           deviceNativePath = "__default__";
           displayMode = "graphic-clean";
           hideIfIdle = false;

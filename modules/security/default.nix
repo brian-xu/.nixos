@@ -13,6 +13,9 @@
   security.pam.services.login.enableGnomeKeyring = true;
 
   environment.systemPackages = with pkgs; [
+    sops
+    age
+    ssh-to-age
     libsecret
   ];
 

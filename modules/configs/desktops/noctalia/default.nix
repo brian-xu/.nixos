@@ -31,6 +31,7 @@
     vlc
     gscreenshot
     kdePackages.okular
+    nixos-artwork.wallpapers.nineish
     # file manager
     kdePackages.qtsvg
     kdePackages.dolphin # This is the actual dolphin package

@@ -12,9 +12,6 @@
 
   home.packages = with pkgs; [
     # util
-    sops
-    age
-    ssh-to-age
     pkg-config
     nixfmt
     nerd-fonts.fira-code
