@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   ...
 }:
 {
@@ -27,7 +28,7 @@
     # coding
     uv
     ruff
-    vscode-fhs
+    pkgs-unstable.vscode.fhs
     claude-code
   ];
 

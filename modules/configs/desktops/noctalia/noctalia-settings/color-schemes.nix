@@ -6,7 +6,7 @@
     schedulingMode = "off";
     manualSunrise = "06:30";
     manualSunset = "18:30";
-    generationMethod = "tonal-spot";
+    generationMethod = "faithful";
     monitorForColors = "";
     syncGsettings = true;
   };
