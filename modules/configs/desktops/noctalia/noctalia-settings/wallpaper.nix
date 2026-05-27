@@ -6,7 +6,7 @@
   programs.noctalia-shell.settings.wallpaper = {
     enabled = true;
     overviewEnabled = false;
-    directory = "/nix/store/";
+    directory = "/home/brian/wallpapers/";
     monitorDirectories = [ ];
     enableMultiMonitorDirectories = false;
     showHiddenFiles = false;
