@@ -3,12 +3,6 @@
   ...
 }:
 {
-  services.greetd.enable = true;
-  services.sysc-greet = {
-    enable = true;
-    compositor = "niri";
-  };
-
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -22,6 +16,16 @@
     variant = "";
   };
 
+  services.printing.enable = true;
+  services.tailscale.enable = true;
+
+  # niri services
+  services.greetd.enable = true;
+  services.sysc-greet = {
+    enable = true;
+    compositor = "niri";
+  };
+
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
@@ -33,9 +37,6 @@
       common.default = [ "gnome" ];
     };
   };
-
-  services.printing.enable = true;
-  services.tailscale.enable = true;
 
   services.gvfs.enable = true;
   services.tumbler.enable = true;
