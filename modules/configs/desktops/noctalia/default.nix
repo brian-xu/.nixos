@@ -26,7 +26,6 @@
     wl-clip-persist
     # desktop apps
     (callPackage ../../../../pkgs/dinky.nix { })
-    feh
     vlc
     gscreenshot
     kdePackages.okular
@@ -42,7 +41,7 @@
     enable = true;
     settings = {
       program_options = {
-        file_manager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
+        file_manager = "${pkgs.nautilus}/bin/nautilus";
       };
     };
   };
