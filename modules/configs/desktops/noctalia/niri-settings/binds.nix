@@ -9,9 +9,8 @@ let
   noctalia =
     cmd:
     [
-      "noctalia-shell"
-      "ipc"
-      "call"
+      "noctalia"
+      "msg"
     ]
     ++ (pkgs.lib.splitString " " cmd);
 in
@@ -21,8 +20,8 @@ in
     "super+F".action = expand-column-to-available-width;
     "super+T".action = toggle-window-floating;
 
-    "super+L".action.spawn = noctalia "lockScreen lock";
-    "super+Space".action.spawn = noctalia "launcher toggle";
+    "super+L".action.spawn = noctalia "screen-lock";
+    "super+Space".action.spawn = noctalia "panel-toggle launcher";
     "super+Return".action = spawn "alacritty";
 
     "super+S".action = set-column-width "-34%";
@@ -56,13 +55,13 @@ in
     "super+Shift+Up".action = move-column-to-workspace-up;
 
     # multimedia keys
-    "XF86AudioMute".action.spawn = noctalia "volume muteOutput"; # output mute
-    "XF86AudioLowerVolume".action.spawn = noctalia "volume decrease"; # output decrease
-    "XF86AudioRaiseVolume".action.spawn = noctalia "volume increase"; # output increase
+    "XF86AudioMute".action.spawn = noctalia "volume-mute"; # output mute
+    "XF86AudioLowerVolume".action.spawn = noctalia "volume-down"; # output decrease
+    "XF86AudioRaiseVolume".action.spawn = noctalia "volume-up"; # output increase
     "XF86AudioPrev".action.spawn = noctalia "media previous";
-    "XF86AudioPlay".action.spawn = noctalia "media playPause";
+    "XF86AudioPlay".action.spawn = noctalia "media toggle";
     "XF86AudioNext".action.spawn = noctalia "media next";
-    "XF86MonBrightnessDown".action.spawn = noctalia "brightness decrease";
-    "XF86MonBrightnessUp".action.spawn = noctalia "brightness increase";
+    "XF86MonBrightnessDown".action.spawn = noctalia "brightness-down";
+    "XF86MonBrightnessUp".action.spawn = noctalia "brightness-up";
   };
 }

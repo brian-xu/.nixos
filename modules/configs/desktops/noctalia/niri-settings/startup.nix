@@ -1,7 +1,7 @@
 {
   programs.niri.settings.spawn-at-startup = [
     { command = [ "xwayland-satellite" ]; }
-    { command = [ "noctalia-shell" ]; }
+    { command = [ "noctalia" ]; }
     {
       command = [
         "systemctl"
@@ -35,7 +35,7 @@
       command = [
         "swayidle"
         "before-sleep"
-        "noctalia-shell ipc call lockScreen lock"
+        "noctalia msg screen-lock"
       ];
     }
   ];
