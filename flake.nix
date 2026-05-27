@@ -13,10 +13,7 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/v5";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    noctalia.url = "github:noctalia-dev/noctalia-shell/v5";
     niri.url = "github:sodiboo/niri-flake";
     sysc-greet = {
       url = "github:Nomadcxx/sysc-greet";
