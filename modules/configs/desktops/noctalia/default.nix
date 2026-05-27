@@ -31,6 +31,7 @@
     vlc
     gscreenshot
     kdePackages.okular
+    kdePackages.gwenview
     nixos-artwork.wallpapers.nineish
     # file manager
     kdePackages.qtsvg

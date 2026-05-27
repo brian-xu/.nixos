@@ -9,6 +9,14 @@
     env.TERM = "xterm-256color";
     font.normal.family = "FiraCode Nerd Font";
 
+    terminal.shell = {
+      program = "zsh";
+      args = [
+        "-c"
+        "krabby random && exec zsh"
+      ];
+    };
+
     keyboard.bindings = [
       {
         key = "N";

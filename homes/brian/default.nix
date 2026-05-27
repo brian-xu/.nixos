@@ -17,6 +17,7 @@
     nixfmt
     nerd-fonts.fira-code
     ffmpeg
+    krabby
     # desktop apps
     (pkgs.callPackage ../../pkgs/ferrosonic.nix { })
     bitwarden-desktop
