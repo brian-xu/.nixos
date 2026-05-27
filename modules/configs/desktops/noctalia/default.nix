@@ -6,7 +6,7 @@
 {
   imports = lib.allExceptThisDefault ./.;
 
-  programs.noctalia-shell.enable = true;
+  programs.noctalia.enable = true;
   programs.niri = {
     enable = true;
     package = pkgs.niri;
