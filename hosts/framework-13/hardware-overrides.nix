@@ -4,6 +4,8 @@
   ...
 }:
 {
+  imports = [ ../../modules/security/fprintd-lid.nix ];
+
   # nixos-hardware framework-13-7040-amd is loaded at flake level; this module
   # adds Framework-specific overrides not covered by nixos-hardware.
   boot.kernelPackages = pkgs.linuxPackagesFor (
@@ -37,6 +39,16 @@
   ];
 
   services.fprintd.enable = true;
+  services.fprintd.lid = {
+    authSkipLidClose = true;
+    path = "/proc/acpi/button/lid/LID0/state";
+    pamServices = [
+      "login"
+      "sudo"
+      "su"
+      "polkit-1"
+    ];
+  };
   security.pam.services.login.fprintAuth = true;
   security.pam.services.login.rules.auth.fprintd.settings.timeout = 30;
   # security.pam.services.sddm.fprintAuth = true;
