@@ -30,7 +30,12 @@
       pkgs.xdg-desktop-portal-gnome
     ];
     config = {
-      common.default = [ "gnome" ];
+      common = {
+        default = [ "gtk" ];
+        "org.freedesktop.portal.ScreenCast" = [ "gnome" ];
+        "org.freedesktop.portal.Screenshot" = [ "gnome" ];
+        "org.freedesktop.portal.RemoteDesktop" = [ "gnome" ];
+      };
     };
   };
 
