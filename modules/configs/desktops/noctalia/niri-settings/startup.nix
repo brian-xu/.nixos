@@ -4,6 +4,14 @@
     { command = [ "noctalia-shell" ]; }
     {
       command = [
+        "systemctl"
+        "--user"
+        "start"
+        "hyprpolkitagent"
+      ];
+    }
+    {
+      command = [
         "wl-clip-persist"
         "--clipboard"
         "both"

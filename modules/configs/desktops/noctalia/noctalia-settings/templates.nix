@@ -6,7 +6,6 @@
       "gtk"
       "niri"
       "qt"
-      "yazi"
       {
         enabled = true;
         id = "alacritty";
@@ -26,10 +25,6 @@
       {
         enabled = true;
         id = "qt";
-      }
-      {
-        enabled = true;
-        id = "niri";
       }
     ];
     enableUserTheming = false;

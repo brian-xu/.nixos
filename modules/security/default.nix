@@ -8,9 +8,7 @@
     openFirewall = false;
   };
 
-  programs.seahorse.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.login.enableGnomeKeyring = true;
+  security.polkit.enable = true;
 
   environment.systemPackages = with pkgs; [
     sops

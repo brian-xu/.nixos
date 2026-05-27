@@ -12,13 +12,12 @@
     package = pkgs.niri;
   };
 
-  programs.yazi.enable = true;
-
   home.packages = with pkgs; [
     # daemons
     udiskie
     swayidle
     xwayland-satellite
+    hyprpolkitagent
     # commands
     grim
     pwvucontrol
@@ -33,11 +32,7 @@
     kdePackages.okular
     kdePackages.gwenview
     # file manager
-    kdePackages.qtsvg
-    kdePackages.dolphin # This is the actual dolphin package
-    kdePackages.kio # needed since 25.11
-    kdePackages.kio-fuse # to mount remote filesystems via FUSE
-    kdePackages.kio-extras # extra protocols support (sftp, fish and more)
+    nautilus
   ];
 
   home.file."wallpapers/nix-wallpaper-nineish.png".source =
