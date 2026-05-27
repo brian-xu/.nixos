@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  inputs,
   ...
 }:
 {
@@ -19,7 +20,8 @@
     ffmpeg
     krabby
     # desktop apps
-    (pkgs.callPackage ../../pkgs/ferrosonic.nix { })
+    inputs.subtui.packages.${pkgs.system}.subtui
+    mpv
     bitwarden-desktop
     slack
     discord

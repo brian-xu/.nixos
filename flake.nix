@@ -20,6 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
+    subtui.url = "github:MattiaPun/SubTUI";
   };
 
   outputs =
