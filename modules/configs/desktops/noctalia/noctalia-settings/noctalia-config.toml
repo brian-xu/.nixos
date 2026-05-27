@@ -1,0 +1,91 @@
+[bar.default]
+center = ["workspaces"]
+end = [
+    "tray",
+    "notifications",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "control-center",
+    "clock",
+    "session",
+]
+start = ["launcher", "wallpaper", "media"]
+
+[config]
+
+[[control_center.shortcuts]]
+type = "wifi"
+
+[[control_center.shortcuts]]
+type = "bluetooth"
+
+[[control_center.shortcuts]]
+type = "caffeine"
+
+[[control_center.shortcuts]]
+type = "nightlight"
+
+[[control_center.shortcuts]]
+type = "notification"
+
+[[control_center.shortcuts]]
+type = "clipboard"
+
+[desktop_widgets]
+schema_version = 1
+widget_order = []
+
+[desktop_widgets.grid]
+cell_size = 16
+major_interval = 4
+visible = true
+
+[desktop_widgets.widget]
+
+[nightlight]
+enabled = true
+
+[shell]
+polkit_agent = false
+telemetry_enabled = true
+
+[shell.panel]
+open_near_click_wallpaper = true
+session_placement = "centered"
+
+[templates]
+
+[theme]
+source = "wallpaper"
+wallpaper_scheme = "faithful"
+
+[theme.templates]
+builtin_ids = ["alacritty", "gtk3", "gtk4", "kcolorscheme", "niri", "qt"]
+
+[wallpaper]
+directory = "/home/brian/wallpapers"
+
+[wallpaper.default]
+path = "/home/brian/wallpapers/nix-wallpaper-nineish.png"
+
+[wallpaper.last]
+path = "/home/brian/wallpapers/nix-wallpaper-nineish.png"
+
+[wallpaper.monitors.DP-10]
+path = "/home/brian/wallpapers/nix-wallpaper-nineish.png"
+
+[wallpaper.monitors.DP-12]
+path = "/home/brian/wallpapers/nix-wallpaper-nineish.png"
+
+[weather]
+address = "Providence, US"
+unit = "imperial"
+
+[widget.media]
+hide_when_no_media = true
+
+[widget.network]
+show_label = false

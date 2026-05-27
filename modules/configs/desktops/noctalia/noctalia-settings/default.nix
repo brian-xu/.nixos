@@ -1,15 +1,3 @@
 {
-  lib,
-  ...
-}:
-{
-
-  imports = lib.allExceptThisDefault ./.;
-  programs.noctalia.settings = {
-    nightlight.enabled = true;
-    weather = {
-      address = "Providence, US";
-      unit = "imperial";
-    };
-  };
+  xdg.configFile."noctalia/config.toml".source = ./noctalia-config.toml;
 }
