@@ -38,7 +38,7 @@
       ...
     }@inputs:
     let
-      lib = nixpkgs.lib.extend (_: _: import ./lib { lib = nixpkgs.lib; });
+      lib = nixpkgs.lib.extend (_: _: import ./lib { inherit (nixpkgs) lib; });
     in
     {
       nixosConfigurations = {
@@ -48,7 +48,7 @@
             lib = lib.extend (_: _: inputs.home-manager.lib);
           };
           modules = [
-            { nixpkgs.overlays = (import ./overlays); }
+            { nixpkgs.overlays = import ./overlays; }
             nixos-hardware.nixosModules.framework-13-7040-amd
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager

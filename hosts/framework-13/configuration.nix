@@ -13,8 +13,4 @@
     ../../modules/security
     ../../homes/brian/ssh-keys.nix
   ];
-
-  # Desktop environments
-  programs.niri.enable = true;
-  # services.desktopManager.plasma6.enable = true;
 }

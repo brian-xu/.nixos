@@ -43,7 +43,6 @@
   # security.pam.services.kde.fprintAuth = lib.mkForce true;
 
   services.fwupd.enable = true;
-
   services.hardware.bolt.enable = true;
 
   services.udev.extraRules = ''

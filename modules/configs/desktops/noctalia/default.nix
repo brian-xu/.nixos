@@ -32,7 +32,6 @@
     gscreenshot
     kdePackages.okular
     kdePackages.gwenview
-    nixos-artwork.wallpapers.nineish
     # file manager
     kdePackages.qtsvg
     kdePackages.dolphin # This is the actual dolphin package
@@ -40,6 +39,9 @@
     kdePackages.kio-fuse # to mount remote filesystems via FUSE
     kdePackages.kio-extras # extra protocols support (sftp, fish and more)
   ];
+
+  home.file."wallpapers/nix-wallpaper-nineish.png".source =
+    "${pkgs.nixos-artwork.wallpapers.nineish}/share/backgrounds/nixos/nix-wallpaper-nineish.png";
 
   services.udiskie = {
     enable = true;

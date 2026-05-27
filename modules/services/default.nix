@@ -1,5 +1,3 @@
-# ly taken from https://github.com/neonvoidx/nix/blob/master/modules/security/ly.nix
-
 {
   pkgs,
   ...
