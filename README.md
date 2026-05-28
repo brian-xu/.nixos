@@ -38,9 +38,9 @@ sudo tee /etc/age/keys.txt
 sudo chmod 600 /etc/age/keys.txt
 ```
 
-### 3. Rebuild — sops decrypts using the age key, places id_ed25519 at ~/.ssh/
+### 3. Rebuild
 ```bash
-sudo nixos-rebuild switch --flake .#nixos
+sudo nixos-rebuild switch --flake ~/.nixos#framework
 ```
 
 ### 4. Add this host to .sops.yaml and re-encrypt so future rebuilds use the host key
@@ -62,4 +62,4 @@ nix flake update
 nix flake update nixpkgs
 ```
 
-Then rebuild to apply: `sudo nixos-rebuild --flake ~/.nixos#framework switch`
+Then rebuild to apply: `nh os switch ~/.nixos#framework`

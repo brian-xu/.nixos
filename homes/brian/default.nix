@@ -33,12 +33,10 @@
     uv
     ruff
     pkgs-unstable.vscode.fhs
-    claude-code
+    pkgs-unstable.claude-code
   ];
 
-  # Desktop environments
   programs.niri.enable = true;
-  # services.desktopManager.plasma6.enable = true;
 
   programs.git = {
     settings = {
