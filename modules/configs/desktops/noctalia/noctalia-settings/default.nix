@@ -1,3 +1,3 @@
 {
-  xdg.configFile."noctalia/config.toml".source = ./noctalia-config.toml;
+  programs.noctalia.settings = ./noctalia-config.toml;
 }

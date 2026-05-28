@@ -19,7 +19,6 @@
       url = "github:Nomadcxx/sysc-greet";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     subtui.url = "github:MattiaPun/SubTUI";
   };
 

@@ -45,14 +45,34 @@ visible = true
 
 [desktop_widgets.widget]
 
+[idle]
+behavior_order = ["lock", "screen-off", "suspend"]
+
+[idle.behavior.lock]
+action = "lock"
+enabled = true
+timeout = 600
+
+[idle.behavior.screen-off]
+action = "screen_off"
+enabled = true
+timeout = 660
+
+[idle.behavior.suspend]
+action = "suspend"
+enabled = true
+lock_before_suspend = true
+timeout = 900
+
 [nightlight]
 enabled = true
 
 [shell]
-polkit_agent = false
+polkit_agent = true
 telemetry_enabled = true
 
 [shell.panel]
+open_near_click_control_center = true
 open_near_click_wallpaper = true
 session_placement = "centered"
 

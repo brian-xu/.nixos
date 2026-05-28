@@ -17,7 +17,6 @@
     udiskie
     swayidle
     xwayland-satellite
-    hyprpolkitagent
     # commands
     grim
     pwvucontrol
@@ -25,8 +24,6 @@
     wl-clipboard
     wl-clip-persist
     # desktop apps
-    (callPackage ../../../../pkgs/dinky.nix { })
-    vlc
     gscreenshot
     kdePackages.okular
     kdePackages.gwenview
