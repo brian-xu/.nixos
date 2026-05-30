@@ -25,7 +25,7 @@
     '';
     interactiveShellInit = ''
       mkdir -p "$MAMBA_ROOT_PREFIX"
-      eval "$(micromamba shell hook -s zsh)"
+      eval "$(micromamba shell hook -s zsh | sed 's/^__exe_name=.*$/__exe_name="micromamba"/')"
     '';
   };
 

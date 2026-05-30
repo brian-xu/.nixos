@@ -63,3 +63,18 @@ nix flake update nixpkgs
 ```
 
 Then rebuild to apply: `nh os switch ~/.nixos#framework`
+
+### Update NixOS version
+
+```bash
+nix-channel --add https://channels.nixos.org/latest nixos
+
+nix-channel --update nixos
+```
+
+Then, update flake inputs and run
+```
+nix flake update
+```
+
+Finally, rebuild to apply: `nh os switch ~/.nixos#framework`

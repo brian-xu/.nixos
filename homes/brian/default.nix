@@ -23,7 +23,7 @@
     (callPackage ../../pkgs/dinky.nix { })
     inputs.subtui.packages.${pkgs.system}.subtui
     mpv
-    bitwarden-desktop
+    bitwarden-cli
     slack
     discord
     obsidian

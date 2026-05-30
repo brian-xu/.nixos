@@ -1,10 +1,11 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
   programs.firefox = {
-
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     policies = {
       # Updates & Background Services
       AppAutoUpdate = false;

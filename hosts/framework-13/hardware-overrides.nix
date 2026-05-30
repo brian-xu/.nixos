@@ -8,18 +8,6 @@
 
   # nixos-hardware framework-13-7040-amd is loaded at flake level; this module
   # adds Framework-specific overrides not covered by nixos-hardware.
-  boot.kernelPackages = pkgs.linuxPackagesFor (
-    pkgs.linux_6_12.override {
-      argsOverride = rec {
-        src = pkgs.fetchurl {
-          url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-          sha256 = "sha256-zBKnZEtM754GYnsp3odT4is9B2cDqbUr6EJj4FyLmDA=";
-        };
-        version = "6.12.87";
-        modDirVersion = "6.12.87";
-      };
-    }
-  );
 
   # Switch Pixart touchpad from interrupt to polling to reduce ~157 IRQ/s storm
   boot.kernelParams = [ "i2c_hid_acpi.polling_mode=1" ];
