@@ -1,3 +1,6 @@
+[bar]
+order = ["default"]
+
 [bar.default]
 center = ["workspaces"]
 end = [
@@ -13,6 +16,14 @@ end = [
     "session",
 ]
 start = ["launcher", "wallpaper", "media"]
+
+[calendar]
+enabled = true
+
+[[calendar.accounts]]
+id = "work_gmail"
+type = "google"
+name = "Work"
 
 [config]
 
