@@ -27,8 +27,14 @@
     gscreenshot
     kdePackages.okular
     kdePackages.gwenview
+    gedit
     # file manager
     nautilus
+    kdePackages.qtsvg
+    kdePackages.dolphin # This is the actual dolphin package
+    kdePackages.kio # needed since 25.11
+    kdePackages.kio-fuse # to mount remote filesystems via FUSE
+    kdePackages.kio-extras # extra protocols support (sftp, fish and more)
   ];
 
   home.file."wallpapers/nix-wallpaper-nineish.png".source =
@@ -38,7 +44,7 @@
     enable = true;
     settings = {
       program_options = {
-        file_manager = "${pkgs.nautilus}/bin/nautilus";
+        file_manager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       };
     };
   };
