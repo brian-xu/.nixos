@@ -34,7 +34,10 @@
       pkgs.xdg-desktop-portal-gnome
     ];
     config = {
-      common.default = [ "gnome" ];
+      common = {
+        default = [ "gnome" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      };
     };
   };
 

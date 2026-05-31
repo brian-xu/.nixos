@@ -29,7 +29,6 @@
     kdePackages.gwenview
     gedit
     # file manager
-    nautilus
     kdePackages.qtsvg
     kdePackages.dolphin # This is the actual dolphin package
     kdePackages.kio # needed since 25.11

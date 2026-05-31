@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./mime-apps.nix
     ../../modules/configs/apps
     ../../modules/configs/desktops/noctalia
   ];
