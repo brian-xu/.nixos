@@ -46,7 +46,7 @@
             lib = lib.extend (_: _: inputs.home-manager.lib);
           };
           modules = [
-            { nixpkgs.overlays = import ./overlays; }
+            { nixpkgs.overlays = import ./overlays { inherit inputs; }; }
             nixos-hardware.nixosModules.framework-13-7040-amd
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
@@ -63,15 +63,13 @@
               ];
               home-manager.extraSpecialArgs = {
                 inherit inputs;
-                pkgs-unstable = import nixpkgs-unstable {
-                  system = "x86_64-linux";
-                  config.allowUnfree = true;
-                };
               };
               home-manager.users.brian = import ./homes/brian/default.nix;
             }
           ];
         };
       };
+
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
     };
 }

@@ -1,8 +1,4 @@
 {
-  pkgs,
-  ...
-}:
-{
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     general.import = [ "./themes/noctalia.toml" ];

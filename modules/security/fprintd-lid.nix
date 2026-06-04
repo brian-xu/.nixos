@@ -1,4 +1,5 @@
 # taken from https://github.com/NixOS/nixpkgs/pull/342676
+# TODO: drop this vendored module if/when that PR merges into nixpkgs.
 
 {
   config,

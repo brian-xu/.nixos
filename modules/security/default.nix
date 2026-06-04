@@ -1,8 +1,11 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
+  imports = lib.allExceptThisDefault ./.;
+
   services.openssh = {
     enable = true;
     openFirewall = false;

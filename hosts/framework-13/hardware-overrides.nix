@@ -1,11 +1,8 @@
 {
   pkgs,
-  lib,
   ...
 }:
 {
-  imports = [ ../../modules/security/fprintd-lid.nix ];
-
   # nixos-hardware framework-13-7040-amd is loaded at flake level; this module
   # adds Framework-specific overrides not covered by nixos-hardware.
 

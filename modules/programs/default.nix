@@ -10,8 +10,6 @@
   ];
   environment.shellAliases.conda = "micromamba";
 
-  programs.git.enable = true;
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -33,7 +31,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/user/my-nixos-config"; # sets NH_OS_FLAKE variable for you
+    flake = "/home/brian/.nixos";
   };
 
   programs.nix-ld.enable = true;

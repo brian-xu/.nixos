@@ -1,8 +1,4 @@
 {
-  pkgs,
-  ...
-}:
-{
   services.upower = {
     enable = true;
     percentageLow = 15;

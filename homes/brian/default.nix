@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-unstable,
   inputs,
   ...
 }:
@@ -26,20 +25,19 @@
     mpv
     bitwarden-cli
     slack
-    discord
+    vesktop
     obsidian
     thunderbird
     blender
     # coding
     uv
     ruff
-    pkgs-unstable.vscode.fhs
-    pkgs-unstable.claude-code
+    pkgs.unstable.vscode.fhs
+    pkgs.unstable.claude-code
   ];
 
-  programs.niri.enable = true;
-
   programs.git = {
+    enable = true;
     settings = {
       user = {
         name = "Brian Xu";

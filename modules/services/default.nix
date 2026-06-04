@@ -1,8 +1,11 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
+  imports = lib.allExceptThisDefault ./.;
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
