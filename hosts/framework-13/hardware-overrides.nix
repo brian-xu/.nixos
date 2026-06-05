@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -34,7 +35,8 @@
       "polkit-1"
     ];
   };
-  security.pam.services.login.fprintAuth = true;
+  # GDM defaults login fprintAuth to false; we want fingerprint login here.
+  security.pam.services.login.fprintAuth = lib.mkForce true;
   security.pam.services.login.rules.auth.fprintd.settings.timeout = 30;
 
   services.fwupd.enable = true;

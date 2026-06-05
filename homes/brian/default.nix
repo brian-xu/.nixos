@@ -7,7 +7,7 @@
   imports = [
     ./mime-apps.nix
     ../../modules/configs/apps
-    ../../modules/configs/desktops/noctalia
+    ../../modules/configs/desktops/gnome
   ];
 
   programs.firefox.enable = true;
