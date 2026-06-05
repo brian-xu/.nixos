@@ -6,7 +6,7 @@
         web = "firefox.desktop";
         multimedia = "umpv.desktop";
         image = "org.kde.gwenview.desktop";
-        directory = "org.kde.dolphin.desktop";
+        directory = "org.gnome.nautlius.desktop";
         text = "org.gnome.gedit.desktop";
         pdf = "org.kde.okular.desktop";
       in
@@ -54,7 +54,7 @@
         "image/tiff" = image;
         "image/webp" = image;
 
-        # directory - dolphin
+        # directory - nautilus
         "inode/directory" = directory;
 
         # generic text - gedit
