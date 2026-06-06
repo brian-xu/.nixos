@@ -1,27 +1,16 @@
 {
   config,
-  pkgs,
   ...
 }:
-
-let
-
-  noctalia =
-    cmd:
-    [
-      "noctalia"
-      "msg"
-    ]
-    ++ (pkgs.lib.splitString " " cmd);
-in
 {
   programs.niri.settings.binds = with config.lib.niri.actions; {
     "super+Q".action = close-window;
     "super+F".action = expand-column-to-available-width;
     "super+T".action = toggle-window-floating;
 
-    "super+L".action.spawn = noctalia "session lock";
-    "super+Space".action.spawn = noctalia "panel-toggle launcher";
+    "super+L".action = spawn "loginctl" "lock-session";
+    "super+Space".action = spawn "cosmic-launcher";
+    "super+A".action = spawn "cosmic-app-library";
     "super+Return".action = spawn "alacritty";
 
     "super+S".action = set-column-width "-34%";
@@ -55,13 +44,13 @@ in
     "super+Shift+Up".action = move-column-to-workspace-up;
 
     # multimedia keys
-    "XF86AudioMute".action.spawn = noctalia "volume-mute"; # output mute
-    "XF86AudioLowerVolume".action.spawn = noctalia "volume-down"; # output decrease
-    "XF86AudioRaiseVolume".action.spawn = noctalia "volume-up"; # output increase
-    "XF86AudioPrev".action.spawn = noctalia "media previous";
-    "XF86AudioPlay".action.spawn = noctalia "media toggle";
-    "XF86AudioNext".action.spawn = noctalia "media next";
-    "XF86MonBrightnessDown".action.spawn = noctalia "brightness-down";
-    "XF86MonBrightnessUp".action.spawn = noctalia "brightness-up";
+    "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+    "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-";
+    "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+";
+    "XF86AudioPrev".action = spawn "playerctl" "previous";
+    "XF86AudioPlay".action = spawn "playerctl" "play-pause";
+    "XF86AudioNext".action = spawn "playerctl" "next";
+    "XF86MonBrightnessDown".action = spawn "brightnessctl" "set" "5%-";
+    "XF86MonBrightnessUp".action = spawn "brightnessctl" "set" "5%+";
   };
 }

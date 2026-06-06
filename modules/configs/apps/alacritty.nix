@@ -1,7 +1,8 @@
 {
+  xdg.configFile."alacritty/alacritty.toml".force = true;
+
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
-    general.import = [ "./themes/noctalia.toml" ];
     env.TERM = "xterm-256color";
     font.normal.family = "FiraCode Nerd Font";
 

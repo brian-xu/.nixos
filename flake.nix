@@ -13,12 +13,7 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia.url = "github:noctalia-dev/noctalia-shell/v5";
     niri.url = "github:sodiboo/niri-flake";
-    sysc-greet = {
-      url = "github:Nomadcxx/sysc-greet";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     subtui.url = "github:MattiaPun/SubTUI";
   };
 
@@ -30,9 +25,7 @@
       home-manager,
       nixos-hardware,
       sops-nix,
-      noctalia,
       niri,
-      sysc-greet,
       ...
     }@inputs:
     let
@@ -50,7 +43,6 @@
             nixos-hardware.nixosModules.framework-13-7040-amd
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
-            sysc-greet.nixosModules.default
             ./nixos
             ./hosts/framework-13/configuration.nix
             {
@@ -59,7 +51,6 @@
               home-manager.backupFileExtension = "bak";
               home-manager.sharedModules = [
                 niri.homeModules.niri
-                noctalia.homeModules.default
               ];
               home-manager.extraSpecialArgs = {
                 inherit inputs;

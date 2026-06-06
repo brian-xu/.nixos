@@ -7,7 +7,7 @@
   imports = [
     ./mime-apps.nix
     ../../modules/configs/apps
-    ../../modules/configs/desktops/noctalia
+    ../../modules/desktops/cosmic/niri-settings
   ];
 
   programs.firefox.enable = true;
@@ -25,7 +25,7 @@
     mpv
     bitwarden-cli
     slack
-    discord
+    vesktop
     obsidian
     thunderbird
     blender

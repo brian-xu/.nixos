@@ -32,6 +32,7 @@
       "sudo"
       "su"
       "polkit-1"
+      "cosmic-greeter" # COSMIC lock screen
     ];
   };
   security.pam.services.login.fprintAuth = true;

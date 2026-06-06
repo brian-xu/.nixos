@@ -4,11 +4,11 @@
     defaultApplications =
       let
         web = "firefox.desktop";
-        multimedia = "umpv.desktop";
+        multimedia = "mpv.desktop";
         image = "org.kde.gwenview.desktop";
-        directory = "org.gnome.nautlius.desktop";
-        text = "org.gnome.gedit.desktop";
-        pdf = "org.kde.okular.desktop";
+        directory = "com.system76.CosmicFiles.desktop";
+        text = "com.system76.CosmicEdit.desktop";
+        pdf = "com.system76.CosmicReader.desktop";
       in
       {
         # web - firefox
@@ -54,14 +54,17 @@
         "image/tiff" = image;
         "image/webp" = image;
 
-        # directory - nautilus
+        # directory - cosmic files
         "inode/directory" = directory;
 
-        # generic text - gedit
+        # generic text - cosmic edit
         "text/plain" = text;
 
-        # pdf - okular
+        # pdf - cosmic reader
         "application/pdf" = pdf;
+
+        # discord - vesktop
+        "x-scheme-handler/discord" = "vesktop.desktop";
       };
   };
 }
