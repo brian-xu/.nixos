@@ -25,7 +25,7 @@
     mpv
     bitwarden-cli
     slack
-    vesktop
+    discord
     obsidian
     thunderbird
     blender

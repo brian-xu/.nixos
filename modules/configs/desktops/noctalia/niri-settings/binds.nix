@@ -20,7 +20,7 @@ in
     "super+F".action = expand-column-to-available-width;
     "super+T".action = toggle-window-floating;
 
-    "super+L".action.spawn = noctalia "screen-lock";
+    "super+L".action.spawn = noctalia "session lock";
     "super+Space".action.spawn = noctalia "panel-toggle launcher";
     "super+Return".action = spawn "alacritty";
 

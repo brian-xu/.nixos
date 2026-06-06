@@ -27,7 +27,7 @@
       command = [
         "swayidle"
         "before-sleep"
-        "noctalia msg screen-lock"
+        "noctalia msg session lock"
       ];
     }
   ];
