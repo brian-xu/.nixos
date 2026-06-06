@@ -1,13 +1,11 @@
+# Adapted from https://github.com/linuxmobile/shin/tree/niri_cosmic_OLD
+
 {
   pkgs,
   lib,
   ...
 }:
 let
-  # Launches the COSMIC session, but tells cosmic-session to use niri as the
-  # compositor instead of cosmic-comp. COSMIC's shell components (panel,
-  # launcher, applets, portal, lock, settings daemon) still come up normally.
-  # Adapted from https://github.com/linuxmobile/shin/tree/niri_cosmic_OLD
   start-cosmic-niri = pkgs.writeShellScriptBin "start-cosmic-niri" ''
     set -e
     export PATH=${
@@ -50,7 +48,8 @@ let
     export XDG_SESSION_TYPE="''${XDG_SESSION_TYPE:=wayland}"
     export XCURSOR_THEME="''${XCURSOR_THEME:=Cosmic}"
     export _JAVA_AWT_WM_NONREPARENTING=1
-    export GDK_BACKEND=wayland,x11
+    # NB: do NOT set GDK_BACKEND globally — niri's docs warn it breaks the
+    # screencast portal (xdg-desktop-portal-gnome is a GTK app).
     export MOZ_ENABLE_WAYLAND=1
     export QT_QPA_PLATFORM="wayland;xcb"
     export QT_AUTO_SCREEN_SCALE_FACTOR=1
@@ -61,11 +60,18 @@ let
       systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
     fi
 
-    # Run cosmic-session, passing `niri` as the compositor to launch
+    # Run cosmic-session, passing `niri` as the compositor to launch.
+    # `--session` is required: niri is our main compositor instance, and the
+    # flag makes niri (a) import its environment globally to systemd & D-Bus
+    # and (b) run its D-Bus services. Without it, the GNOME screencast portal
+    # never sees niri's org.gnome.Mutter.ScreenCast/ServiceChannel (so Firefox/
+    # Discord screen sharing fails), and apps launched outside niri's child
+    # tree (e.g. from the COSMIC launcher) miss DISPLAY/NIXOS_OZONE_WL and break.
+    # cosmic-session forwards trailing args to the compositor it execs.
     if [ -z "''${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
-      exec dbus-run-session -- cosmic-session niri
+      exec dbus-run-session -- cosmic-session niri --session
     else
-      exec cosmic-session niri
+      exec cosmic-session niri --session
     fi
   '';
 

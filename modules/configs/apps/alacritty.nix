@@ -1,6 +1,4 @@
 {
-  # Overwrite an existing on-disk alacritty.toml in place rather than backing it
-  # up, so a stale .bak can't block home-manager activation.
   xdg.configFile."alacritty/alacritty.toml".force = true;
 
   programs.alacritty.enable = true;

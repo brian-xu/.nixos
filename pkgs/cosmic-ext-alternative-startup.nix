@@ -4,11 +4,6 @@
   fetchFromGitHub,
 }:
 
-# Tiny helper that provides cosmic-comp's "session API" to cosmic-session when
-# a non-COSMIC compositor (here: niri) is used. niri must spawn this at startup
-# so cosmic-session completes its readiness handshake and goes on to launch the
-# panel, applets, background, notifications, etc.
-# See: https://github.com/drakulix/cosmic-ext-extra-sessions (HowThisWorks.md)
 rustPlatform.buildRustPackage rec {
   pname = "cosmic-ext-alternative-startup";
   version = "0-unstable-2024-10-26";

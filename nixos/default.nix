@@ -26,6 +26,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "video" # backlight write access (brightnessctl udev rules)
     ];
   };
 

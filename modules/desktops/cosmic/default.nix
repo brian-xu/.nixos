@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [ ./session.nix ];
 
@@ -7,7 +8,18 @@
   # Enable the COSMIC desktop environment
   services.desktopManager.cosmic.enable = true;
 
-  # Let clipboard managers (cliphist / wl-clip-persist) read the clipboard
-  # under COSMIC's compositor stack.
+  # Drop COSMIC apps
+  environment.cosmic.excludePackages = with pkgs; [
+    cosmic-store
+    cosmic-term
+    cosmic-screenshot
+  ];
+
+  # Enable global clipboard
   environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = "1";
+
+  # Backlight control for niri
+  environment.systemPackages = [ pkgs.brightnessctl ];
+  services.udev.packages = [ pkgs.brightnessctl ];
+  services.system76-scheduler.enable = true;
 }
