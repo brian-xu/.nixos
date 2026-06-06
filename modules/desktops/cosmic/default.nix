@@ -13,13 +13,20 @@
     cosmic-store
     cosmic-term
     cosmic-screenshot
+    cosmic-player
+  ];
+
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+    kdePackages.gwenview
   ];
 
   # Enable global clipboard
   environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = "1";
 
   # Backlight control for niri
-  environment.systemPackages = [ pkgs.brightnessctl ];
-  services.udev.packages = [ pkgs.brightnessctl ];
+  services.udev.packages = with pkgs; [
+    brightnessctl
+  ];
   services.system76-scheduler.enable = true;
 }

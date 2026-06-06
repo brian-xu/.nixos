@@ -10,23 +10,24 @@
     { command = [ "xwayland-satellite" ]; }
     {
       command = [
-        "wl-clip-persist"
-        "--clipboard"
-        "both"
-      ];
-    }
-    {
-      command = [
-        "sh"
-        "-c"
-        "wl-paste --type text --watch cliphist store"
-      ];
-    }
-    {
-      command = [
-        "sh"
-        "-c"
-        "wl-paste --type image --watch cliphist store"
+        "${pkgs.swayidle}/bin/swayidle"
+        "-w"
+        # Screen off after 15 min idle, back on when activity resumes.
+        "timeout"
+        "900"
+        "niri msg action power-off-monitors"
+        "resume"
+        "niri msg action power-on-monitors"
+        # On battery: suspend after 15 min idle.
+        "timeout"
+        "900"
+        "grep -q 1 /sys/class/power_supply/ACAD/online || systemctl suspend"
+        # On AC: suspend after 30 min idle.
+        "timeout"
+        "1800"
+        "grep -q 1 /sys/class/power_supply/ACAD/online && systemctl suspend"
+        "before-sleep"
+        "loginctl lock-session"
       ];
     }
   ];

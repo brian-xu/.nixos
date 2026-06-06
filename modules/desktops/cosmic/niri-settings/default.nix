@@ -12,6 +12,7 @@
   };
 
   home.packages = with pkgs; [
+    swayidle
     xwayland-satellite
     grim
     gscreenshot
