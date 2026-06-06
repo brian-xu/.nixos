@@ -1,4 +1,6 @@
 {
+  # XDG_CURRENT_DESKTOP / XDG_SESSION_TYPE are set by the COSMIC-on-niri
+  # session script (session.nix), so they are intentionally not overridden here.
   programs.niri.settings.environment = {
     CLUTTER_BACKEND = "wayland";
     GDK_BACKEND = "wayland,x11";
@@ -8,8 +10,7 @@
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
 
-    XDG_SESSION_TYPE = "wayland";
-    XDG_CURRENT_DESKTOP = "niri";
+    # xwayland-satellite display for X11 clients
     DISPLAY = ":0";
   };
 }

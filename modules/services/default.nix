@@ -22,13 +22,6 @@
   services.printing.enable = true;
   services.tailscale.enable = true;
 
-  # niri services
-  services.greetd.enable = true;
-  services.sysc-greet = {
-    enable = true;
-    compositor = "niri";
-  };
-
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;

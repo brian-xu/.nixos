@@ -7,6 +7,7 @@
   imports = [
     ./mime-apps.nix
     ../../modules/configs/apps
+    ../../modules/desktops/cosmic/niri-settings
   ];
 
   programs.firefox.enable = true;
