@@ -8,7 +8,7 @@
   };
 
   services.tlp = {
-    enable = true;
+    enable = false;
     settings = {
       # amd-pstate-epp requires powersave governor; schedutil is ignored by this driver
       CPU_SCALING_GOVERNOR_ON_AC = "powersave";
