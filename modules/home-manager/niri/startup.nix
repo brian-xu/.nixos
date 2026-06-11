@@ -8,6 +8,7 @@
       command = [ "${pkgs.cosmic-ext-alternative-startup}/bin/cosmic-ext-alternative-startup" ];
     }
     { command = [ "xwayland-satellite" ]; }
+    { command = [ "foot" "--server" ]; }
     {
       command = [
         "${pkgs.swayidle}/bin/swayidle"

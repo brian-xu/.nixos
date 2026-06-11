@@ -19,6 +19,7 @@
   environment.systemPackages = with pkgs; [
     brightnessctl
     kdePackages.gwenview
+    pwvucontrol
   ];
 
   # Enable global clipboard

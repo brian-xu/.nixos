@@ -11,7 +11,7 @@
     "super+L".action = spawn "loginctl" "lock-session";
     "super+Space".action = spawn "cosmic-launcher";
     "super+A".action = spawn "cosmic-app-library";
-    "super+Return".action = spawn "foot";
+    "super+Return".action = spawn "footclient";
 
     "super+S".action = set-column-width "-34%";
     "super+D".action = set-column-width "+34%";

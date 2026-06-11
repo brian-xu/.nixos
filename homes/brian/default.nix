@@ -22,8 +22,6 @@
     (callPackage ../../pkgs/dinky.nix { })
     inputs.subtui.packages.${pkgs.system}.subtui
     mpv
-    bitwarden-cli
-    slack
     vesktop
     obsidian
     thunderbird

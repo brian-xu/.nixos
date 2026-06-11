@@ -2,9 +2,26 @@
   pkgs,
   ...
 }:
+let
+  micromamba-unwrapped = pkgs.runCommand "micromamba-unwrapped" { } ''
+    install -Dm755 ${pkgs.mamba-cpp}/bin/.mamba-wrapped $out/bin/micromamba
+  '';
+
+  micromamba-fhs = pkgs.buildFHSEnv {
+    name = "micromamba";
+    targetPkgs = _: [ micromamba-unwrapped ];
+    runScript = "micromamba";
+    profile = ''
+      set -e
+      export MAMBA_ROOT_PREFIX=$HOME/.micromamba
+      eval "$(micromamba shell hook --shell=posix)"
+      set +e
+    '';
+  };
+in
 {
   environment.systemPackages = with pkgs; [
-    micromamba
+    micromamba-fhs
     nixd
     fastfetch
   ];
@@ -13,18 +30,6 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
-    ohMyZsh.enable = true;
-    ohMyZsh.plugins = [ "git" ];
-    ohMyZsh.theme = "frisk";
-    syntaxHighlighting.enable = true;
-    shellInit = ''
-      export MAMBA_ROOT_PREFIX="$HOME/.micromamba"
-    '';
-    interactiveShellInit = ''
-      mkdir -p "$MAMBA_ROOT_PREFIX"
-      eval "$(micromamba shell hook -s zsh | sed 's/^__exe_name=.*$/__exe_name="micromamba"/')"
-    '';
   };
 
   programs.nh = {
