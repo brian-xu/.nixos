@@ -5,7 +5,7 @@
       term = "xterm-256color";
       font = "FiraCode Nerd Font:size=11";
       pad = "25x20";
-      shell = ''zsh -c "krabby random && exec zsh"'';
+      shell = ''bash -c "krabby random && exec bash"'';
     };
 
     cursor = {
@@ -15,8 +15,8 @@
 
     key-bindings = {
       spawn-terminal = "Control+n";
-      clipboard-copy = "Control+Shift+c";
-      clipboard-paste = "Control+v";
+      clipboard-copy = "Control+Shift+c XF86Copy";
+      clipboard-paste = "Control+v Control+Shift+v XF86Paste";
     };
   };
 }

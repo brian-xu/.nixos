@@ -26,6 +26,7 @@
     obsidian
     thunderbird
     blender
+    godot
     # coding
     uv
     ruff

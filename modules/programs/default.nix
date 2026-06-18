@@ -25,12 +25,6 @@ in
     nixd
     fastfetch
   ];
-  environment.shellAliases.conda = "micromamba";
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-  };
 
   programs.nh = {
     enable = true;
@@ -41,5 +35,5 @@ in
 
   programs.nix-ld.enable = true;
 
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.bashInteractive;
 }
