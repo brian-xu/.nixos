@@ -19,7 +19,6 @@
     ffmpeg
     krabby
     # desktop apps
-    (callPackage ../../pkgs/dinky.nix { })
     inputs.subtui.packages.${pkgs.system}.subtui
     mpv
     vesktop
