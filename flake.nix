@@ -15,6 +15,7 @@
     };
     niri.url = "github:sodiboo/niri-flake";
     subtui.url = "github:MattiaPun/SubTUI";
+    latchshot.url = "github:so1ve/latchshot";
   };
 
   outputs =

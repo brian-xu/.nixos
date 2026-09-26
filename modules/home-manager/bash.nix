@@ -9,6 +9,13 @@
 let
   blerc = pkgs.writeText "blerc" ''
     bleopt history_share=1
+    function blerc/emacs-keymap {
+      ble-bind -m emacs -f M-RET accept-line
+      ble-bind -m emacs -f M-C-m accept-line
+      ble-bind -m emacs -f C-j -
+      bleopt keymap_emacs_mode_string_multiline=$'\e[1m-- MULTILINE --\e[m (\e[35mRET\e[m: insert a newline, \e[35mM-RET\e[m: run)'
+    }
+    blehook/eval-after-load keymap_emacs blerc/emacs-keymap
 
     _ble_contrib_fzf_base=${pkgs.fzf}/share/fzf
     ble-import -d integration/fzf-completion
@@ -42,6 +49,9 @@ in
 
     initExtra = lib.mkMerge [
       ''
+        ## Source profile for non-login bash
+        [[ -r "$HOME/.profile" ]] && . "$HOME/.profile"
+
         export MAMBA_ROOT_PREFIX="$HOME/.micromamba"
         micromamba() {
           unset -f micromamba conda

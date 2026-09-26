@@ -11,6 +11,10 @@
 
   programs.firefox.enable = true;
 
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+
   home.packages = with pkgs; [
     # util
     pkg-config
@@ -23,12 +27,18 @@
     mpv
     vesktop
     obsidian
+    slack
     thunderbird
     blender
     godot
+    google-chrome
     # coding
     uv
     ruff
+    gh
+    prek
+    terraform
+    awscli2
     pkgs.unstable.vscode.fhs
     pkgs.unstable.claude-code
   ];

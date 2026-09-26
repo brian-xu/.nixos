@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -14,9 +15,23 @@
   home.packages = with pkgs; [
     swayidle
     xwayland-satellite
-    grim
-    gscreenshot
+    wl-clipboard
+    inputs.latchshot.packages.${pkgs.system}.default
   ];
+
+  xdg.desktopEntries.latchshot = {
+    name = "Latchshot";
+    genericName = "Screenshot";
+    comment = "A lightweight yet intelligent window-aware screenshot tool for Wayland";
+    exec = "latchshot";
+    icon = "applets-screenshooter";
+    terminal = false;
+    categories = [
+      "Utility"
+      "Graphics"
+    ];
+    settings.Keywords = "screenshot;capture;screen;";
+  };
 
   xdg.portal = {
     xdgOpenUsePortal = true;
