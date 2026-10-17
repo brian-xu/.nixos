@@ -22,6 +22,12 @@
   services.printing.enable = true;
   services.tailscale.enable = true;
 
+  services.earlyoom = {
+    enable = true;
+    freeSwapThreshold = 5;
+    freeMemThreshold = 5;
+  };
+
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
