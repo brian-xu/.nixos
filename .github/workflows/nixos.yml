@@ -12,6 +12,7 @@ on:
 
 jobs:
   build:
+    if: "${{ !startsWith(github.head_ref || github.ref_name, 'update_flake_lock_action') }}"
     runs-on: ubuntu-latest
 
     strategy:
