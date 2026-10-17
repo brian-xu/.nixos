@@ -47,10 +47,12 @@
       ];
       extra-substituters = [
         "https://cache.nixos.org"
+        "https://niri.cachix.org"
         "https://brian-xu.cachix.org"
       ];
       extra-trusted-public-keys = [
         "brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4="
+        "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       ];
     };
   };
