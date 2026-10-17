@@ -27,20 +27,18 @@
     mpv
     vesktop
     obsidian
-    slack
     thunderbird
-    blender
     godot
-    google-chrome
+    bitwarden-desktop
     # coding
     uv
     ruff
     gh
     prek
     terraform
-    awscli2
+    just
+    nodejs_22
     pkgs.unstable.vscode.fhs
-    pkgs.unstable.claude-code
   ];
 
   programs.git = {
@@ -50,6 +48,7 @@
         name = "Brian Xu";
         email = "brian@brian-xu.com";
       };
+      url."git@github.com:".insteadOf = "https://github.com/";
     };
     extraConfig.push.autoSetupRemote = true;
   };
