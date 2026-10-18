@@ -16,9 +16,4 @@
     owner = "brian";
     mode = "600";
   };
-  sops.secrets.brian-1 = {
-    path = "/home/brian/.ssh/brian-1.pem";
-    owner = "brian";
-    mode = "600";
-  };
 }
