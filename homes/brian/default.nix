@@ -22,12 +22,13 @@
     nerd-fonts.fira-code
     ffmpeg
     krabby
+    bubblemail
     # desktop apps
     inputs.subtui.packages.${pkgs.system}.subtui
     mpv
     vesktop
     obsidian
-    thunderbird
+    evolution
     godot
     bitwarden-desktop
     # coding
@@ -39,6 +40,7 @@
     just
     nodejs_22
     pkgs.unstable.vscode.fhs
+    pkgs.unstable.mistral-vibe
   ];
 
   programs.git = {

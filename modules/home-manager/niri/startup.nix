@@ -10,6 +10,11 @@
     { command = [ "xwayland-satellite" ]; }
     {
       command = [
+        "bubblemaild"
+      ];
+    }
+    {
+      command = [
         "foot"
         "--server"
       ];
