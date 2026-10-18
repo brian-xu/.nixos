@@ -54,15 +54,22 @@ git -C /home/brian/.nixos add -A && git commit -m "add $(hostname) host key" && 
 ## Maintenance
 
 ### Update inputs
-```bash
-# Update all inputs to their latest commits
-nix flake update
 
-# Update a single input (e.g. nixpkgs only)
-nix flake update nixpkgs
+New: automatically managed by GitHub actions.
+
+```bash
+# Get updated flake from host repository.
+git pull
+
+# Pull prebuilt binaries from cachix.
+nh os switch ~/.nixos#framework
 ```
 
-Then rebuild to apply: `nh os switch ~/.nixos#framework`
+### Update secrets
+
+```bash
+sudo SOPS_AGE_KEY_CMD='ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key' sops edit /etc/nixos/secrets/secrets.yaml
+```
 
 ### Update NixOS version
 
@@ -73,7 +80,7 @@ nix-channel --update nixos
 ```
 
 Then, update flake inputs and run
-```
+```bash
 nix flake update
 ```
 
