@@ -78,6 +78,20 @@ cat > "$MNT/etc/nixos/configuration.nix" <<'EOF'
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # The flake's nix.settings only applies after stage 2's rebuild; without
+  # these the stage-2 build (on this throwaway) substitutes from nothing and
+  # builds the entire closure from source.
+  nix.settings.substituters = [
+    "https://cache.nixos.org"
+    "https://brian-xu.cachix.org"
+    "https://niri.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g="
+    "brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4="
+    "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+  ];
   system.stateVersion = "26.05";
 }
 EOF
