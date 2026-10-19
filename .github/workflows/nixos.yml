@@ -49,3 +49,18 @@ jobs:
       - name: "Build NixOS config ❄️"
         run: |
           nix build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel -L
+
+  ci-passed:
+    name: CI Passed
+    needs: build
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Gate on build result ❄️"
+        run: |
+          result="${{ needs.build.result }}"
+          echo "build result: ${result}"
+          # 'skipped' means the build job's if-guard excluded this event (lock auto-updates on push)
+          if [ "$result" != "success" ] && [ "$result" != "skipped" ]; then
+            exit 1
+          fi
