@@ -51,14 +51,22 @@ else
   echo "    To enable later: sudo mkdir -p /etc/age && sudo tee $AGE_KEY_FILE, then re-run."
 fi
 
+# The stage-1 throwaway system does not include git. Use nix-shell when
+# it is missing (requires nix-command/flakes, which stage 1 enables).
+GIT=${GIT:-git}
+if ! command -v git > /dev/null 2>&1; then
+  echo ">>> git not found in PATH, wrapping commands with nix-shell -p git"
+  GIT="nix-shell -p git --run"
+fi
+
 echo ">>> Fetching the repo to $REPO_DIR (branch $BRANCH)"
 if [[ -d $REPO_DIR/.git ]]; then
   echo "    $REPO_DIR already exists, updating"
-  git -C "$REPO_DIR" fetch origin
-  git -C "$REPO_DIR" checkout "$BRANCH"
-  git -C "$REPO_DIR" reset --hard "origin/$BRANCH"
+  $GIT "git -C '$REPO_DIR' fetch origin"
+  $GIT "git -C '$REPO_DIR' checkout '$BRANCH'"
+  $GIT "git -C '$REPO_DIR' reset --hard 'origin/$BRANCH'"
 else
-  git clone -b "$BRANCH" https://github.com/brian-xu/.nixos.git "$REPO_DIR"
+  $GIT "git clone -b '$BRANCH' https://github.com/brian-xu/.nixos.git '$REPO_DIR'"
 fi
 
 echo ">>> Applying the real system (builds onto disk-backed /nix)"
