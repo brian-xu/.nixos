@@ -1,15 +1,25 @@
 {
   osConfig,
+  lib,
   ...
 }:
 
+let
+  # secrets.nix only defines the sops template when the age key exists;
+  # fall back to an empty file so SSH config evaluation never breaks on a
+  # key-less fresh install.
+  sshHostsConf = (
+    if (osConfig.sops ? templates) && (osConfig.sops.templates ? "ssh-hosts.conf") then
+      osConfig.sops.templates."ssh-hosts.conf".path
+    else
+      "/dev/null"
+  );
+in
 {
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-
-    includes = [ osConfig.sops.templates."ssh-hosts.conf".path ];
-
+    includes = [ sshHostsConf ];
     settings = {
       "discord.us-central1-a.cloud-computation-136" = {
         User = "brianxu";
