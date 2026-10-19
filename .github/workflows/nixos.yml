@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - disko-btrfs
     paths-ignore:
       - 'README.md'
       - '.gitignore'
