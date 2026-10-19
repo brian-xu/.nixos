@@ -25,7 +25,7 @@ bash install/stage-0.sh
 reboot
 ```
 
-## 4. Install the stage-1 system (the flake's install variant)
+## 4. Install the stage-1 system (the minimal throwaway config)
 
 ```bash
 bash /tmp/.nixos/install/stage-1.sh

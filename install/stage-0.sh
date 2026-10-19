@@ -11,7 +11,7 @@ fi
 
 if [[ ! -f $REPO_DIR/hosts/framework-13/disko.nix ]]; then
   echo "$REPO_DIR not found. Cloning..."
-  git clone -b https://github.com/brian-xu/.nixos.git "$REPO_DIR"
+  git clone https://github.com/brian-xu/.nixos.git "$REPO_DIR"
 fi
 
 nix --experimental-features "nix-command flakes" \

@@ -39,21 +39,6 @@
     in
     {
       nixosConfigurations = {
-        framework-install = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            lib = lib.extend (_: _: inputs.home-manager.lib);
-          };
-          modules = [
-            { nixpkgs.overlays = import ./overlays { inherit inputs; }; }
-            nixos-hardware.nixosModules.framework-13-7040-amd
-            disko.nixosModules.disko
-            ./nixos
-            ./hosts/framework-13/configuration.nix
-            ./hosts/framework-13/install.nix
-          ];
-        };
-
         framework = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;

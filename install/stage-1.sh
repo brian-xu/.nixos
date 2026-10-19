@@ -3,6 +3,7 @@ set -euo pipefail
 
 MNT=/mnt
 REPO_DIR=${REPO_DIR:-$(cd "$(dirname "$0")/.." && pwd)}
+STAGE_DIR=$(cd "$(dirname "$0")" && pwd)
 
 if [[ $EUID -ne 0 ]]; then
   echo "Run as root (sudo -i) from the installer ISO." >&2
@@ -18,18 +19,15 @@ if ! mountpoint -q "$MNT"; then
   exit 1
 fi
 
-if ! grep -q 'brian-xu.cachix.org' /etc/nix/nix.conf 2>/dev/null; then
-  echo ">>> Pointing the ISO's Nix at the caches"
-  cat > /etc/nix/nix.conf <<'EOF'
-substituters = https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964=
-experimental-features = nix-command flakes
-EOF
-  systemctl restart nix-daemon
-fi
+echo ">>> Copying stage-1 configuration to $MNT/etc/nixos"
+mkdir -p "$MNT/etc/nixos"
+install -m 0644 \
+  "$STAGE_DIR/hardware-configuration.nix" \
+  "$STAGE_DIR/configuration.nix" \
+  "$MNT/etc/nixos/"
 
-echo ">>> Installing the stage-1 system from the flake (framework-install)"
-nixos-install --root "$MNT" --no-root-password --flake "$REPO_DIR#framework-install"
+echo ">>> Running nixos-install (builds the minimal system, installs systemd-boot)"
+nixos-install --root "$MNT" --no-root-password
 
 echo
 echo "Stage 1 complete. Reboot (remove the USB), unlock LUKS, log in as brian/install,"
