@@ -30,10 +30,10 @@
             content = {
               type = "luks";
               name = "crypted";
-              # settings = {
-              #   allowDiscards = true;
-              #   keyFile = "/tmp/secret.key";
-              # };
+              settings = {
+                allowDiscards = true;
+                #   keyFile = "/tmp/secret.key";
+              };
               # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
               content = {
                 type = "btrfs";
@@ -63,10 +63,6 @@
                       "compress=zstd"
                       "noatime"
                     ];
-                  };
-                  "/swap" = {
-                    mountpoint = "/.swapvol";
-                    swap.swapfile.size = "20M";
                   };
                 };
               };
