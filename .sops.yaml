@@ -3,7 +3,7 @@ keys:
   - &brian age1wmdy6eujyqrp7zd56e35l988rwc84yqmlnpy4hv0u8228z83zsgq9g0ek0
 
   # Host age key — generated with: ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
-  - &nixos age1lme0hz6edca53wq6w5w7sypd9jj0mllffylslaerkrshae4fspzslk6szm
+  - &nixos age1fzqtt6g90fcr4hu3ukqlh7q8qs5ux2cqhdxt0qphddn3md5un5kqpc46tl
 
 creation_rules:
   - path_regex: secrets/.*\.yaml$

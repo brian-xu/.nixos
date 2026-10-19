@@ -42,14 +42,15 @@ sudo chmod 600 /etc/age/keys.txt
 
 ### 3. Rebuild
 ```bash
-sudo nixos-rebuild switch --flake ~/.nixos#framework
+nh os switch ~/.nixos#framework
 ```
 
 ### 4. Add this host to .sops.yaml and re-encrypt so future rebuilds use the host key
 ```bash
 ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
 # Add to .sops.yaml, then:
-sops updatekeys /home/brian/.nixos/secrets/secrets.yaml
+cd ~/.nixos
+sudo SOPS_AGE_KEY_FILE=/etc/age/keys.txt sops updatekeys /home/brian/.nixos/secrets/secrets.yaml
 git -C /home/brian/.nixos add -A && git commit -m "add $(hostname) host key" && git push
 ```
 
@@ -70,7 +71,7 @@ nh os switch ~/.nixos#framework
 ### Update secrets
 
 ```bash
-sudo SOPS_AGE_KEY_CMD='ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key' sops edit /etc/nixos/secrets/secrets.yaml
+sudo SOPS_AGE_KEY_CMD='ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key' sops edit ~/.nixos/secrets/secrets.yaml
 ```
 
 ### Update NixOS version

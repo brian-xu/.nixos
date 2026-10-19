@@ -12,8 +12,6 @@ let
     hosts
     ;
 
-  hasAgeKey = builtins.pathExists config.sops.age.keyFile;
-
   identitySecrets = lib.mapAttrs (secret: basename: {
     path = "${config.users.users.${user}.home}/.ssh/${basename}";
     owner = user;
@@ -37,12 +35,17 @@ in
 {
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
 
-  sops.secrets = lib.mkIf hasAgeKey (identitySecrets // ipSecrets);
+  sops.secrets = identitySecrets // ipSecrets;
 
-  sops.templates = lib.mkIf hasAgeKey {
+  sops.templates = {
     ${hostsTemplate} = {
       owner = user;
       content = hostsConf;
     };
   };
+
+  sops.useSystemdActivation = true;
+  systemd.services.sops-install-secrets.unitConfig.ConditionPathExists = [
+    config.sops.age.keyFile
+  ];
 }
