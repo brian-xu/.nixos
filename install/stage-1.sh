@@ -67,6 +67,10 @@ cat > "$MNT/etc/nixos/configuration.nix" <<'EOF'
 
   networking.networkmanager.enable = true;
 
+  # Wifi firmware (Framework 13 uses mt7921e, in-tree driver, firmware needed)
+  # so stage 2 can clone/rebuild over wifi after first boot.
+  hardware.enableRedistributableFirmware = true;
+
   users.users.brian = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
