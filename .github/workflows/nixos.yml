@@ -39,6 +39,12 @@ jobs:
         with:
           name: brian-xu
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          # The action's daemon-mode push (useDaemon: true by default)
+          # silently loses uploads of large NARs (terraform ~100MiB:
+          # "Push job finished in 0s" every run while the cache 404s it)
+          # and poisons its bookkeeping so later pushes skip the lost
+          # paths. Disable the daemon; we push explicitly after the build.
+          useDaemon: false
 
       # Needed because cachix is also installed by Home Manager
       - name: "Set priority flag for Cachix 🚩"
