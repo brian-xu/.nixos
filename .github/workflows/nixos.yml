@@ -47,3 +47,12 @@ jobs:
       - name: "Build NixOS config ❄️"
         run: |
           nix build .#nixosConfigurations.framework.config.system.build.toplevel -L
+
+      # cachix-action's daemon push is unreliable: its push activity ends
+      # before the build finishes, so the closure's tail (terraform,
+      # home-manager paths, the toplevel) never uploads and the cache 404s
+      # them. Push explicitly, after the build, from the built result.
+      - name: "Push closure to Cachix"
+        run: |
+          nix build .#nixosConfigurations.framework.config.system.build.toplevel -o result
+          cachix push brian-xu result
