@@ -36,6 +36,16 @@ if ! $SUDO grep -q 'brian-xu.cachix.org' "$NIX_CONF" 2>/dev/null \
 fi
 
 if [[ $need_fix == true ]]; then
+  # Detect an unwritable /etc (ISO squashfs, chroot, read-only fs):
+  # fall back to NIX_CONFIG, which needs no file writes.
+  if ! $SUDO touch /etc/.write-test 2>/dev/null; then
+    echo ">>> /etc is not writable — using NIX_CONFIG env instead of $NIX_CONF"
+    export NIX_CONFIG="$NIX_CONFIG
+substituters = $SUBSTITUTERS
+trusted-public-keys = $TRUSTED_KEYS"
+    echo ">>> Running nixos-rebuild switch --flake $REPO_DIR#framework (root is unconditionally trusted)"
+    exec $SUDO env NIX_CONFIG="$NIX_CONFIG" nixos-rebuild switch --flake "$REPO_DIR#framework"
+  fi
   echo ">>> Fixing $NIX_CONF (trust for cachix + cache.nixos.org, trusted-users)"
   if ! $SUDO true 2>/dev/null; then
     echo ">>> sudo unavailable. Re-run as root instead:" >&2
@@ -50,6 +60,7 @@ trusted-public-keys = $TRUSTED_KEYS
 trusted-users = root $(id -un)
 experimental-features = nix-command flakes
 EOF
+  $SUDO rm -f /etc/.write-test
   $SUDO systemctl restart nix-daemon 2>/dev/null \
     || $SUDO pkill -HUP nix-daemon 2>/dev/null \
     || echo "  (could not restart nix-daemon — reboot to apply)"
