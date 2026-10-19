@@ -22,4 +22,6 @@
 
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.age.keyFile = "/etc/age/keys.txt"; # restore from Bitwarden
+  # secrets.nix gates sops.secrets on this key existing, so a fresh install
+  # can boot without it; rebuild after staging the key to activate secrets.
 }
