@@ -86,11 +86,13 @@ else
 fi
 
 echo ">>> Applying the real system (builds onto disk-backed /nix)"
-# The throwaway already sets substituters (stage 1), but pass them explicitly
-# so substitution works even if stage 1 was run from an older script version.
-sudo nixos-rebuild switch --flake "$REPO_DIR#framework" \
-  --option substituters 'https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org' \
-  --option trusted-public-keys 'cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964='
+# Trust comes from the daemon config (fixed above) — not --option flags,
+# which replace settings and produce 'ignoring the following substituters'.
+# Belt-and-suspenders: also export NIX_CONFIG for this invocation.
+NIX_CONFIG="substituters = https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+export NIX_CONFIG
+sudo env NIX_CONFIG="$NIX_CONFIG" nixos-rebuild switch --flake "$REPO_DIR#framework"
 
 echo
 echo "Stage 2 complete. Set your real password:"
