@@ -86,13 +86,12 @@ else
 fi
 
 echo ">>> Applying the real system (builds onto disk-backed /nix)"
-# Trust comes from the daemon config (fixed above) — not --option flags,
-# which replace settings and produce 'ignoring the following substituters'.
-# Belt-and-suspenders: also export NIX_CONFIG for this invocation.
-NIX_CONFIG="substituters = https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
-export NIX_CONFIG
-sudo env NIX_CONFIG="$NIX_CONFIG" nixos-rebuild switch --flake "$REPO_DIR#framework"
+# No --option flags and no NIX_CONFIG override: the daemon's nix.conf is
+# correct (stage 1 bakes it in; doctor.sh --fix repairs older installs), and
+# overriding it via env multi-line vars loses lines through the sudo/env
+# re-invocation chain — dropping trusted-public-keys and causing the exact
+# 'ignoring substituters' warnings this script used to produce.
+sudo nixos-rebuild switch --flake "$REPO_DIR#framework"
 
 echo
 echo "Stage 2 complete. Set your real password:"
