@@ -1,19 +1,48 @@
 {
-  # sops secrets
+  config,
+  lib,
+  ...
+}:
+
+let
+  inherit (import ../ssh-hosts.nix)
+    user
+    hostsTemplate
+    identities
+    hosts
+    ;
+
+  hasAgeKey = builtins.pathExists config.sops.age.keyFile;
+
+  identitySecrets = lib.mapAttrs (secret: basename: {
+    path = "${config.users.users.${user}.home}/.ssh/${basename}";
+    owner = user;
+    mode = "600";
+  }) identities;
+
+  ipSecrets = lib.mapAttrs' (
+    _: host: lib.nameValuePair host.ipSecret { sopsFile = ../../secrets/ssh-ips.yaml; }
+  ) (lib.filterAttrs (_: host: host ? ipSecret) hosts);
+
+  hostsConf = lib.concatStrings (
+    lib.mapAttrsToList (
+      _: host:
+      lib.optionalString (host ? ipSecret) ''
+        Host ${host.alias}
+          HostName ${config.sops.placeholder.${host.ipSecret}}
+      ''
+    ) hosts
+  );
+in
+{
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  sops.secrets.ssh_id_ed25519 = {
-    path = "/home/brian/.ssh/id_ed25519";
-    owner = "brian";
-    mode = "600";
-  };
-  sops.secrets.racknerd = {
-    path = "/home/brian/.ssh/racknerd";
-    owner = "brian";
-    mode = "600";
-  };
-  sops.secrets.google_compute_engine = {
-    path = "/home/brian/.ssh/google_compute_engine";
-    owner = "brian";
-    mode = "600";
+
+  sops.secrets = lib.mkIf hasAgeKey (identitySecrets // ipSecrets);
+
+  sops.templates = lib.mkIf hasAgeKey {
+    ${hostsTemplate} = {
+      owner = user;
+      content = hostsConf;
+    };
   };
 }

@@ -1,10 +1,26 @@
 {
+  config,
+  lib,
   pkgs,
+  modulesPath,
   ...
 }:
 {
   # nixos-hardware framework-13-7040-amd is loaded at flake level; this module
   # adds Framework-specific overrides not covered by nixos-hardware.
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "thunderbolt"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # Switch Pixart touchpad from interrupt to polling to reduce ~157 IRQ/s storm
   boot.kernelParams = [ "i2c_hid_acpi.polling_mode=1" ];
@@ -22,21 +38,6 @@
     framework-tool
     framework-tool-tui
   ];
-
-  services.fprintd.enable = true;
-  services.fprintd.lid = {
-    authSkipLidClose = true;
-    path = "/proc/acpi/button/lid/LID0/state";
-    pamServices = [
-      "login"
-      "sudo"
-      "su"
-      "polkit-1"
-      "cosmic-greeter"
-    ];
-  };
-  security.pam.services.login.fprintAuth = true;
-  security.pam.services.login.rules.auth.fprintd.settings.timeout = 30;
 
   services.fwupd.enable = true;
   services.hardware.bolt.enable = true;
