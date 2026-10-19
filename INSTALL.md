@@ -66,10 +66,12 @@ reboot
 Log in as `brian` / `install`, then run the stage-2 script:
 
 ```bash
-bash /tmp/.nixos/install/stage-2.sh   # if the repo was cloned to /tmp on the ISO
-# or, if not:
-curl -fsSL https://raw.githubusercontent.com/brian-xu/.nixos/disko-btrfs/install/stage-2.sh | bash
+curl -fsSL https://raw.githubusercontent.com/brian-xu/.nixos/disko-btrfs/install/stage-2.sh -o /tmp/stage-2.sh
+bash /tmp/stage-2.sh
 ```
+
+(Download the script — do not pipe `curl ... | bash`: the script reads the
+age key from stdin and must not consume the piped script itself.)
 
 Stage 2 runs with a disk-backed `/nix`, and the flake's substituters
 (`brian-xu.cachix.org`, `niri.cachix.org`) are in effect for the first time.
