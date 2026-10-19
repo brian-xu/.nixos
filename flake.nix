@@ -13,6 +13,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     niri.url = "github:sodiboo/niri-flake";
     subtui.url = "github:MattiaPun/SubTUI";
     latchshot.url = "github:so1ve/latchshot";
@@ -26,6 +30,7 @@
       home-manager,
       nixos-hardware,
       sops-nix,
+      disko,
       niri,
       ...
     }@inputs:
@@ -34,6 +39,21 @@
     in
     {
       nixosConfigurations = {
+        framework-install = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            lib = lib.extend (_: _: inputs.home-manager.lib);
+          };
+          modules = [
+            { nixpkgs.overlays = import ./overlays { inherit inputs; }; }
+            nixos-hardware.nixosModules.framework-13-7040-amd
+            disko.nixosModules.disko
+            ./nixos
+            ./hosts/framework-13/configuration.nix
+            ./hosts/framework-13/install.nix
+          ];
+        };
+
         framework = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
@@ -43,9 +63,11 @@
             { nixpkgs.overlays = import ./overlays { inherit inputs; }; }
             nixos-hardware.nixosModules.framework-13-7040-amd
             sops-nix.nixosModules.sops
+            disko.nixosModules.disko
             home-manager.nixosModules.home-manager
             ./nixos
             ./hosts/framework-13/configuration.nix
+            ./hosts/framework-13/desktop.nix
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

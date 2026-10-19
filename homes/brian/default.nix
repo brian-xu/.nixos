@@ -34,7 +34,6 @@
     # coding
     uv
     ruff
-    gh
     prek
     terraform
     just
