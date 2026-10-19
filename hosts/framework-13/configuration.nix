@@ -1,6 +1,6 @@
 {
   imports = [
-    ./hardware-configuration.nix
+    ./disko.nix
     ./hardware-overrides.nix
     ../../modules/programs
     ../../modules/services

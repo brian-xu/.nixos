@@ -24,6 +24,8 @@ secrets/                     # SOPS/age encrypted secrets (safe to commit)
 
 ## Setup
 
+For a fresh install from the NixOS minimal ISO, see [INSTALL.md](INSTALL.md).
+
 ### 1. Clone config
 ```bash
 git clone https://github.com/brian-xu/.nixos.git
