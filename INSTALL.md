@@ -38,7 +38,7 @@ nix --experimental-features "nix-command flakes" \
   --write-efi-boot-entries \
   --flake '/tmp/.nixos#framework' \
   --disk nvme0n1 /dev/nvme0n1 \
-  --system-config '{"users.users.brian.initialPassword":"install"}' \
+  --system-config '{"users":{"users":{"brian":{"initialPassword":"install"}}}}' \
   --extra-files /tmp/staging/etc/age/keys.txt /etc/age/keys.txt \
   --extra-files /tmp/staging/etc/nixos /etc/nixos \
   --extra-files /tmp/staging/home/brian /home/brian
