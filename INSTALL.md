@@ -52,10 +52,14 @@ Notes:
 
 ## 4. Install the minimal throwaway system
 
-Write a hand-rolled hardware config (the layout is fully determined by
-`disko.nix`, so `nixos-generate-config` is not needed — it may also print a
-harmless "failed to retrieve subvolume info" warning against the subvolume
-mounts):
+Run the stage-1 script (it writes the hand-rolled hardware config — the layout
+is fully determined by `disko.nix`, so `nixos-generate-config` is not needed —
+plus a minimal `configuration.nix`, then runs `nixos-install`):
+
+```bash
+bash /tmp/.nixos/install/stage-1.sh
+reboot
+```
 
 ```bash
 mkdir -p /mnt/etc/nixos
@@ -123,16 +127,12 @@ reboot
 
 ## 5. First boot — apply the real system
 
-Log in as `brian` / `install`, then:
+Log in as `brian` / `install`, then run the stage-2 script:
 
 ```bash
-sudo mkdir -p /etc/age
-sudo tee /etc/age/keys.txt     # paste sops age key from Bitwarden, Ctrl-D
-sudo chmod 600 /etc/age/keys.txt
-
-git clone -b disko-btrfs https://github.com/brian-xu/.nixos.git ~/.nixos
-sudo nixos-rebuild switch --flake ~/.nixos#framework
-passwd                        # set the real password
+bash /tmp/.nixos/install/stage-2.sh   # if the repo was cloned to /tmp on the ISO
+# or, if not:
+curl -fsSL https://raw.githubusercontent.com/brian-xu/.nixos/disko-btrfs/install/stage-2.sh | bash
 ```
 
 Stage 2 runs with a disk-backed `/nix`, and the flake's substituters
