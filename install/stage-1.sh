@@ -20,25 +20,28 @@ fi
 
 if ! grep -q 'brian-xu.cachix.org' /etc/nix/nix.conf 2>/dev/null; then
   echo ">>> Pointing the ISO's Nix at the caches"
-  # /etc/nix and /tmp are on the ISO's read-only layer, so write a new
-  # nix.conf under /run (always a writable tmpfs) and bind-mount it over
-  # /etc/nix where the daemon reads it, then restart the daemon (same
+  # The ISO's /etc, /tmp, and /run are all on read-only layers, so write
+  # the new nix.conf on the freshly disko'd target disk and bind-mount it
+  # over /etc/nix where the daemon reads it, then restart the daemon (same
   # approach as stage-2.sh; NIX_CONFIG alone is client-side and the daemon
-  # ignores untrusted substituters).
-  mkdir -p /run/nix-conf.d
-  cp -a /etc/nix/. /run/nix-conf.d/ 2>/dev/null || true
-  cat > /run/nix-conf.d/nix.conf <<'EOF'
+  # ignores untrusted substituters). The staged dir is removed after install.
+  NIX_CONF_STAGE="$MNT/nix-conf-stage"
+  mkdir -p "$NIX_CONF_STAGE"
+  cp -a /etc/nix/. "$NIX_CONF_STAGE"/ 2>/dev/null || true
+  cat > "$NIX_CONF_STAGE/nix.conf" <<'EOF'
 substituters = https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org
 trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964=
 trusted-users = root
 experimental-features = nix-command flakes
 EOF
-  mount --bind /run/nix-conf.d /etc/nix
+  mount --bind "$NIX_CONF_STAGE" /etc/nix
   systemctl restart nix-daemon
 fi
 
 echo ">>> Installing the stage-1 system from the flake (framework-install)"
 nixos-install --root "$MNT" --no-root-password --flake "$REPO_DIR#framework-install"
+
+rm -rf "$MNT/nix-conf-stage"
 
 echo
 echo "Stage 1 complete. Reboot (remove the USB), unlock LUKS, log in as brian/install,"
