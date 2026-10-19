@@ -19,6 +19,14 @@ jobs:
       fail-fast: true
       matrix:
         system: [framework, framework-install]
+        # framework-install must be built input-addressed so its store paths
+        # match what the installer ISO requests from the cache.
+        experimental-features: ["nix-command flakes ca-derivations", "nix-command flakes"]
+        exclude:
+          - system: framework
+            experimental-features: "nix-command flakes"
+          - system: framework-install
+            experimental-features: "nix-command flakes ca-derivations"
 
     steps:
       - uses: actions/checkout@v2.3.2
@@ -33,7 +41,7 @@ jobs:
         with:
           extra_nix_config: |
             accept-flake-config = true
-            experimental-features = nix-command flakes
+            experimental-features = ${{ matrix.experimental-features }}
             trusted-users = root runner
 
       - name: "Install Cachix ❄️"
