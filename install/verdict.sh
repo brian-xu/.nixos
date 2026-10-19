@@ -37,6 +37,7 @@ fi
 
 h=$(basename "$DRV" | sed 's/-.*//')
 code=$(curl -s -m 10 -o /dev/null -w '%{http_code}' "https://cache.nixos.org/$h.narinfo" || echo err)
+cachix_code=$(curl -s -m 10 -o /dev/null -w '%{http_code}' "https://brian-xu.cachix.org/$h.narinfo" || echo err)
 
 # Config health: all three keys present in root's effective config?
 keys_ok=true
@@ -52,16 +53,16 @@ if [[ -n $daemon_start && $daemon_start != 0 ]] && (( conf_mtime > daemon_start 
   stale=true
 fi
 
-echo "probe: $NAME  cache.nixos.org -> $code  keys_ok=$keys_ok  daemon_stale=$stale"
+echo "probe: $NAME  cache.nixos.org -> $code  brian-xu.cachix.org -> $cachix_code  keys_ok=$keys_ok  daemon_stale=$stale"
 echo
 if [[ $stale == true ]]; then
   echo "VERDICT: the nix daemon is running stale config. Run: sudo systemctl restart nix-daemon && sudo nixos-rebuild switch --flake $REPO_DIR#framework"
 elif [[ $keys_ok == false ]]; then
   echo "VERDICT: /etc/nix/nix.conf is missing cache keys. Run: bash /tmp/doctor.sh --fix   then rebuild."
-elif [[ $code == 200 ]]; then
-  echo "VERDICT: the cache has your package and config looks fine — substitution should work. If the rebuild still builds locally, run it plainly (no NIX_CONFIG, no --option): sudo nixos-rebuild switch --flake $REPO_DIR#framework"
-elif [[ $code == 404 ]]; then
-  echo "VERDICT: nothing is broken — cache.nixos.org genuinely lacks this exact build (your nixpkgs pin is newer than hydra's queue). Let it build locally once, then run cache-push.sh so it never builds again."
+elif [[ $code == 200 || $cachix_code == 200 ]]; then
+  echo "VERDICT: a cache has your package and config looks fine — substitution should work. If the rebuild still builds locally, run it plainly (no NIX_CONFIG, no --option): sudo nixos-rebuild switch --flake $REPO_DIR#framework"
+elif [[ $code == 404 && $cachix_code == 404 ]]; then
+  echo "VERDICT: nothing is broken — neither cache has this exact build. If CI just ran green on this branch, its cachix push failed; check the Cachix step in the workflow logs (token/quota). Otherwise your nixpkgs pin is newer than hydra's queue and CI hasn't built this branch — let it build locally once, then run cache-push.sh."
 else
-  echo "VERDICT: network/probe error ($code) reaching cache.nixos.org — check connectivity, then retry."
+  echo "VERDICT: network/probe error (cache.nixos.org: $code, cachix: $cachix_code) — check connectivity, then retry."
 fi
