@@ -78,6 +78,7 @@ cat > "$MNT/etc/nixos/configuration.nix" <<'EOF'
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.trusted-users = [ "root" "brian" ];
 
   # The flake's nix.settings only applies after stage 2's rebuild; without
   # these the stage-2 build (on this throwaway) substitutes from nothing and
