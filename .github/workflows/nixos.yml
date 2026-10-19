@@ -48,18 +48,22 @@ jobs:
         run: |
           nix build .#nixosConfigurations.framework.config.system.build.toplevel -L
 
-      # cachix-action's daemon-mode push silently loses uploads ("Push job
-      # finished in 0s" for large NARs, then "Nothing to push" from later
-      # steps consulting the same daemon's bookkeeping) while the cache 404s
-      # the exact paths it claims to hold. Bypass the daemon: push
-      # synchronously, verbosely, and verify a just-built narinfo afterward.
+      # cachix-action's daemon silently loses uploads and poisons its own
+      # bookkeeping: every later push (including explicit ones) asks "already
+      # on cachix?" via the daemon, gets a stale "yes", and skips — while the
+      # cache 404s the exact paths (verified: terraform g154isaad...). Kill
+      # the daemon so the push runs standalone with real cache queries, then
+      # verify both the toplevel and a deep closure member actually landed.
       - name: "Push closure to Cachix"
-        env:
-          CACHIX_DAEMON_DIR: ""
         run: |
+          cachix daemon kill 2>/dev/null || pkill -f 'cachix.*daemon' 2>/dev/null || true
+          export CACHIX_DAEMON_DIR=""
           nix build .#nixosConfigurations.framework.config.system.build.toplevel -o result
           cachix push brian-xu result -v
-          h=$(basename "$(readlink -f result)" | sed 's/-.*//')
-          code=$(curl -s -o /dev/null -w '%{http_code}' "https://brian-xu.cachix.org/$h.narinfo")
-          echo "toplevel narinfo probe: $code"
-          [ "$code" = "200" ] || { echo "CACHE PUSH FAILED: cache still lacks the toplevel" >&2; exit 1; }
+          for p in "$(readlink -f result)" "$(nix-store -q --requisites "$(readlink -f result)" | grep -m1 terraform || true)"; do
+            [ -z "$p" ] && continue
+            h=$(basename "$p" | sed 's/-.*//')
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://brian-xu.cachix.org/$h.narinfo")
+            echo "narinfo probe $h -> $code"
+            [ "$code" = "200" ] || { echo "CACHE PUSH FAILED: $p not on cachix" >&2; exit 1; }
+          done
