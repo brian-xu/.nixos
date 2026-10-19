@@ -34,5 +34,5 @@ nixos-install --root "$MNT" --no-root-password --flake "$REPO_DIR#framework-inst
 echo
 echo "Stage 1 complete. Reboot (remove the USB), unlock LUKS, log in as brian/install,"
 echo "then run stage 2:"
-echo "  curl -fsSL https://raw.githubusercontent.com/brian-xu/.nixos/disko-btrfs/install/stage-2.sh | bash"
+echo "  curl -fsSL https://raw.githubusercontent.com/brian-xu/.nixos/install/stage-2.sh | bash"
 echo "(or clone the repo and run: bash install/stage-2.sh)"

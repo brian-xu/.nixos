@@ -2,7 +2,6 @@
 set -euo pipefail
 
 REPO_DIR=${REPO_DIR:-$HOME/.nixos}
-BRANCH=${BRANCH:-disko-btrfs}
 
 if [[ $EUID -eq 0 ]]; then
   echo "Run as brian, not root (the script uses sudo where needed)." >&2
@@ -28,14 +27,14 @@ EOF
   sudo systemctl restart nix-daemon
 fi
 
-echo ">>> Fetching the repo to $REPO_DIR (branch $BRANCH)"
+echo ">>> Fetching the repo to $REPO_DIR"
 if [[ -d $REPO_DIR/.git ]]; then
   echo "    $REPO_DIR already exists, updating"
   run_git -C "$REPO_DIR" fetch origin
-  run_git -C "$REPO_DIR" checkout "$BRANCH"
-  run_git -C "$REPO_DIR" reset --hard "origin/$BRANCH"
+  run_git -C "$REPO_DIR" remote set-head origin -a
+  run_git -C "$REPO_DIR" reset --hard origin/HEAD
 else
-  run_git clone -b "$BRANCH" https://github.com/brian-xu/.nixos.git "$REPO_DIR"
+  run_git clone https://github.com/brian-xu/.nixos.git "$REPO_DIR"
 fi
 
 echo ">>> Applying the real system (builds onto disk-backed /nix)"
