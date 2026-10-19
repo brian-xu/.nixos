@@ -61,6 +61,20 @@ run_git() {
   fi
 }
 
+# The throwaway (installed by an older stage-1) may lack substituter trust
+# in the nix-daemon's nix.conf; --option flags do not extend daemon trust.
+# Write the daemon config directly so substitution actually works.
+if ! grep -q 'brian-xu.cachix.org' /etc/nix/nix.conf 2>/dev/null; then
+  echo ">>> Adding cachix substituters to /etc/nix/nix.conf and restarting nix-daemon"
+  sudo mkdir -p /etc/nix
+  sudo tee /etc/nix/nix.conf > /dev/null <<'EOF'
+substituters = https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964=
+trusted-users = root brian
+EOF
+  sudo systemctl restart nix-daemon
+fi
+
 echo ">>> Fetching the repo to $REPO_DIR (branch $BRANCH)"
 if [[ -d $REPO_DIR/.git ]]; then
   echo "    $REPO_DIR already exists, updating"
