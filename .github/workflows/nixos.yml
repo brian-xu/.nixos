@@ -48,11 +48,18 @@ jobs:
         run: |
           nix build .#nixosConfigurations.framework.config.system.build.toplevel -L
 
-      # cachix-action's daemon push is unreliable: its push activity ends
-      # before the build finishes, so the closure's tail (terraform,
-      # home-manager paths, the toplevel) never uploads and the cache 404s
-      # them. Push explicitly, after the build, from the built result.
+      # cachix-action's daemon-mode push silently loses uploads ("Push job
+      # finished in 0s" for large NARs, then "Nothing to push" from later
+      # steps consulting the same daemon's bookkeeping) while the cache 404s
+      # the exact paths it claims to hold. Bypass the daemon: push
+      # synchronously, verbosely, and verify a just-built narinfo afterward.
       - name: "Push closure to Cachix"
+        env:
+          CACHIX_DAEMON_DIR: ""
         run: |
           nix build .#nixosConfigurations.framework.config.system.build.toplevel -o result
-          cachix push brian-xu result
+          cachix push brian-xu result -v
+          h=$(basename "$(readlink -f result)" | sed 's/-.*//')
+          code=$(curl -s -o /dev/null -w '%{http_code}' "https://brian-xu.cachix.org/$h.narinfo")
+          echo "toplevel narinfo probe: $code"
+          [ "$code" = "200" ] || { echo "CACHE PUSH FAILED: cache still lacks the toplevel" >&2; exit 1; }
