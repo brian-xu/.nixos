@@ -18,14 +18,11 @@ if ! mountpoint -q "$MNT"; then
   exit 1
 fi
 
-if ! grep -q 'brian-xu.cachix.org' /etc/nix/nix.conf 2>/dev/null; then
+if [[ -z "${NIX_CONFIG:-}" || "$NIX_CONFIG" != *'brian-xu.cachix.org'* ]]; then
   echo ">>> Pointing the ISO's Nix at the caches"
-  cat > /etc/nix/nix.conf <<'EOF'
-substituters = https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org
+  export NIX_CONFIG="${NIX_CONFIG:+$NIX_CONFIG$'\n'}substituters = https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org
 trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964=
-experimental-features = nix-command flakes
-EOF
-  systemctl restart nix-daemon
+experimental-features = nix-command flakes"
 fi
 
 echo ">>> Installing the stage-1 system from the flake (framework-install)"
