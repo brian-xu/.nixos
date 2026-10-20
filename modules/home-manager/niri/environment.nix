@@ -6,8 +6,5 @@
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
-
-    # xwayland-satellite display for X11 clients
-    DISPLAY = ":0";
   };
 }
