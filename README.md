@@ -50,7 +50,8 @@ nh os switch ~/.nixos#framework
 ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
 # Add to .sops.yaml, then:
 cd ~/.nixos
-sudo SOPS_AGE_KEY_FILE=/etc/age/keys.txt sops updatekeys /home/brian/.nixos/secrets/secrets.yaml
+sudo SOPS_AGE_KEY_FILE=/etc/age/keys.txt sops updatekeys secrets/secrets.yaml
+sudo SOPS_AGE_KEY_FILE=/etc/age/keys.txt sops updatekeys secrets/ssh-ips.yaml
 git -C /home/brian/.nixos add -A && git commit -m "add $(hostname) host key" && git push
 ```
 
