@@ -22,14 +22,28 @@ let
     _: host: lib.nameValuePair host.ipSecret { sopsFile = ../../secrets/ssh-ips.yaml; }
   ) (lib.filterAttrs (_: host: host ? ipSecret) hosts);
 
+  settingsFor =
+    host:
+    {
+      User = host.user;
+    }
+    // lib.optionalAttrs (host ? ipSecret) {
+      HostName = config.sops.placeholder.${host.ipSecret};
+    }
+    // lib.optionalAttrs (host ? hostName) { HostName = host.hostName; }
+    // lib.optionalAttrs (host ? port) { Port = host.port; }
+    // lib.optionalAttrs (host ? hostKeyAlias) { HostKeyAlias = host.hostKeyAlias; }
+    // lib.optionalAttrs (host ? identity) {
+      IdentityFile = "~/.ssh/${identities.${host.identity}}";
+    }
+    // lib.optionalAttrs (host ? identitiesOnly) { IdentitiesOnly = host.identitiesOnly; }
+    // lib.optionalAttrs (host ? checkHostIP) { CheckHostIP = host.checkHostIP; };
+
   hostsConf = lib.concatStrings (
-    lib.mapAttrsToList (
-      _: host:
-      lib.optionalString (host ? ipSecret) ''
-        Host ${host.alias}
-          HostName ${config.sops.placeholder.${host.ipSecret}}
-      ''
-    ) hosts
+    lib.mapAttrsToList (_: host: ''
+      Host ${host.alias}
+      ${lib.concatStrings (lib.mapAttrsToList (k: v: "  ${k} ${v}\n") (settingsFor host))}
+    '') hosts
   );
 in
 {
