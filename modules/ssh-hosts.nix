@@ -6,15 +6,12 @@
   identities = {
     ssh_id_ed25519 = "id_ed25519";
     racknerd = "racknerd";
-    google_compute_engine = "google_compute_engine";
   };
 
   hosts = {
     discord = {
       alias = "discord.us-central1-a.cloud-computation-136";
-      user = "brianxu";
-      identity = "google_compute_engine";
-      identitiesOnly = "yes";
+      user = "brian";
       checkHostIP = "no";
       ipSecret = "discord_ip";
     };
