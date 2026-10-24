@@ -38,7 +38,6 @@
     terraform
     just
     nodejs_22
-    pkgs.unstable.vscode.fhs
     pkgs.unstable.mistral-vibe
   ];
 
