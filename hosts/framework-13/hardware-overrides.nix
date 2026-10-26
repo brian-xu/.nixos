@@ -43,4 +43,10 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ATTR{power/wakeup}="disabled"
   '';
+
+  boot.initrd.services.udev.packages = [
+    (pkgs.writeTextDir "etc/udev/rules.d/A0-luks-ready.rules" ''
+      SUBSYSTEM=="block", ENV{DM_UUID}=="CRYPT-*", ENV{SYSTEMD_READY}="1"
+    '')
+  ];
 }

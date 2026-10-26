@@ -3,6 +3,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 1;
 
+  boot.initrd.systemd.emergencyAccess = "$y$j9T$qZ91rpMTMy90SsPZdiMkA.$7E9RT11mNB1QTgqQllZAbMAq78GvspED/KiHwLGen/C";
+
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
