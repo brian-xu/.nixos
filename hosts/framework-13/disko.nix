@@ -30,11 +30,7 @@
             content = {
               type = "luks";
               name = "crypted";
-              settings = {
-                allowDiscards = true;
-                #   keyFile = "/tmp/secret.key";
-              };
-              # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
+              settings.allowDiscards = true;
               content = {
                 type = "btrfs";
                 extraArgs = [

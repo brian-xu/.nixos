@@ -23,6 +23,7 @@
     ffmpeg
     krabby
     bubblemail
+    playerctl
     # desktop apps
     inputs.subtui.packages.${pkgs.system}.subtui
     mpv

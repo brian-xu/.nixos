@@ -20,8 +20,8 @@ if ! grep -q 'brian-xu.cachix.org' /etc/nix/nix.conf 2>/dev/null; then
   echo ">>> Adding cachix substituters to /etc/nix/nix.conf and restarting nix-daemon"
   sudo mkdir -p /etc/nix
   sudo tee /etc/nix/nix.conf > /dev/null <<'EOF'
-substituters = https://cache.nixos.org https://brian-xu.cachix.org https://niri.cachix.org
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964=
+substituters = https://cache.nixos.org https://brian-xu.cachix.org https://nix-community.cachix.org
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gwWVrUeUlo4vQwJGtH0hFEEwPiW7g= brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
 trusted-users = root brian
 EOF
   sudo systemctl restart nix-daemon

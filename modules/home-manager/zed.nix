@@ -108,6 +108,8 @@ in
 
   # expose Zed's CLI as `zed` instead of `zeditor`
   home.packages = [
+    pkgs.nil
+    pkgs.terraform-ls
     (pkgs.runCommand "zed-cli" { } ''
       mkdir -p $out/bin
       ln -s ${lib.getExe zed} $out/bin/zed

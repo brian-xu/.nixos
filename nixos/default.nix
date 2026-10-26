@@ -48,13 +48,11 @@
       extra-substituters = [
         "https://cache.nixos.org"
         "https://brian-xu.cachix.org"
-        "https://niri.cachix.org"
         "https://nix-community.cachix.org"
         "https://devenv.cachix.org"
       ];
       extra-trusted-public-keys = [
         "brian-xu.cachix.org-1:Wc29LaxB/t3YjkXEDGMAcnBKYj8YqQl9pPs48nDcro4="
-        "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
