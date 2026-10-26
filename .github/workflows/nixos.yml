@@ -95,14 +95,13 @@ jobs:
       # parallel `build` job. systemd-nspawn can't check this config: its
       # root filesystem is LUKS on a physical disk, and a container has no
       # block devices to unlock. So boot the real thing in QEMU instead:
-      # `boot` installs the config to a disk image and boots through the
-      # bootloader (Limine/UEFI), `boot-luks` partitions a VM disk with the
-      # actual disko layout (LUKS + btrfs), unlocks it with a test keyfile,
-      # and reboots. Both must reach multi-user.target.
+      # the disko test partitions a VM disk with the actual disko layout
+      # (ESP + LUKS + btrfs), installs the system, unlocks LUKS with a
+      # test keyfile, and reboots through the bootloader (Limine/UEFI)
+      # to multi-user.target.
       - name: "Boot test (QEMU VM) ❄️"
         timeout-minutes: 60
         run: |
-          nix build .#checks.x86_64-linux.boot -L
           nix build .#checks.x86_64-linux.boot-luks -L
 
   ci-passed:

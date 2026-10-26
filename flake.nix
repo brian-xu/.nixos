@@ -71,25 +71,12 @@
         modules = frameworkModules;
       };
 
-      checks.x86_64-linux.boot = nixpkgs.legacyPackages.x86_64-linux.testers.runNixOSTest {
-        name = "framework-boot";
-        node.specialArgs = specialArgs;
-        node.pkgsReadOnly = false;
-        requiredFeatures.kvm = false;
-        nodes.machine = {
-          imports = frameworkModules;
-          virtualisation.cores = 4;
-          virtualisation.memorySize = 4096;
-          virtualisation.useBootLoader = true;
-          virtualisation.useEFIBoot = true;
-        };
-        testScript = ''
-          machine.start()
-          machine.wait_for_console_text("Reached target Multi-User System", timeout=1800)
-          machine.wait_for_unit("multi-user.target")
-        '';
-      };
-
+      # Boot the real config through the real disk layout: makeDiskoTest
+      # partitions a VM disk with the framework's disko config (ESP + LUKS +
+      # btrfs subvolumes), installs the system, unlocks LUKS with a test
+      # keyfile, and reboots. systemd-nspawn can't check this (no block
+      # devices to unlock), and a plain VM boot test would be redundant
+      # since this covers the bootloader path too.
       checks.x86_64-linux.boot-luks =
         let
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
