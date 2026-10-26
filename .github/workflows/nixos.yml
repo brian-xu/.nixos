@@ -51,6 +51,12 @@ jobs:
         run: |
           nix build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel -L
 
+      # Boot the built config in a QEMU VM (via Limine/UEFI) and wait for
+      # multi-user.target; catches breakage that only shows up at boot.
+      - name: "Boot test (VM) ❄️"
+        run: |
+          nix build .#checks.x86_64-linux.boot -L
+
   ci-passed:
     name: CI Passed
     needs: build
