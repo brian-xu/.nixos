@@ -51,17 +51,76 @@ jobs:
         run: |
           nix build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel -L
 
+  boot-test:
+    name: "Boot test (${{ matrix.system }})"
+    if: "${{ !(github.event_name == 'push' && contains(github.event.head_commit.message, 'update_flake_lock_action')) }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    strategy:
+      fail-fast: true
+      matrix:
+        system: [framework]
+
+    steps:
+      - uses: actions/checkout@v2.3.2
+
+      - name: "Free disk space for Nix"
+        uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: 'cleave' # holster, carve, cleave (default), rampage
+
+      - name: "Install Nix ❄️"
+        uses: cachix/install-nix-action@v31.8.4
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes ca-derivations
+            trusted-users = root runner
+            # NixOS VM tests require these features; runners have no /dev/kvm,
+            # so QEMU falls back to TCG emulation at runtime.
+            system-features = nixos-test kvm
+
+      - name: "Install Cachix ❄️"
+        uses: cachix/cachix-action@v16
+        with:
+          name: brian-xu
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      # Needed because cachix is also installed by Home Manager
+      - name: "Set priority flag for Cachix 🚩"
+        run: nix-env --set-flag priority 0 cachix
+
+      # Verify the boot sequence only; package builds are covered by the
+      # parallel `build` job. systemd-nspawn can't check this config: its
+      # root filesystem is LUKS on a physical disk, and a container has no
+      # block devices to unlock. So boot the real thing in QEMU instead:
+      # `boot` installs the config to a disk image and boots through the
+      # bootloader (Limine/UEFI), `boot-luks` partitions a VM disk with the
+      # actual disko layout (LUKS + btrfs), unlocks it with a test keyfile,
+      # and reboots. Both must reach multi-user.target.
+      - name: "Boot test (QEMU VM) ❄️"
+        timeout-minutes: 60
+        run: |
+          nix build .#checks.x86_64-linux.boot -L
+          nix build .#checks.x86_64-linux.boot-luks -L
+
   ci-passed:
     name: CI Passed
-    needs: build
+    needs: [build, boot-test]
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: "Gate on build result ❄️"
+      - name: "Gate on job results ❄️"
         run: |
-          result="${{ needs.build.result }}"
-          echo "build result: ${result}"
-          # 'skipped' means the build job's if-guard excluded this event (lock auto-updates on push)
-          if [ "$result" != "success" ] && [ "$result" != "skipped" ]; then
+          build_result="${{ needs.build.result }}"
+          boot_result="${{ needs.boot-test.result }}"
+          echo "build result: ${build_result}"
+          echo "boot-test result: ${boot_result}"
+          # 'skipped' means a job's if-guard excluded this event (lock auto-updates on push)
+          if [ "$build_result" != "success" ] && [ "$build_result" != "skipped" ]; then
+            exit 1
+          fi
+          if [ "$boot_result" != "success" ] && [ "$boot_result" != "skipped" ]; then
             exit 1
           fi
