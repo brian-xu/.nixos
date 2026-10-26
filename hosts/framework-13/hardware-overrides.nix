@@ -43,4 +43,17 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ATTR{power/wakeup}="disabled"
   '';
+
+  # 26.05 enables systemd stage 1 by default. Upstream systemd's
+  # 99-systemd.rules marks dm-crypt devices as SYSTEMD_READY=0 when udev
+  # can't identify a filesystem superblock on the mapped device, which is
+  # common for LUKS+btrfs. sysroot.mount then times out waiting for
+  # dev-mapper-crypted.device and the boot cascades into
+  # "Dependency failed for Find NixOS closure" (nixpkgs#527478).
+  # Mark encrypted mapper devices ready so the root mount can proceed.
+  boot.initrd.services.udev.packages = [
+    (pkgs.writeTextDir "etc/udev/rules.d/A0-luks-ready.rules" ''
+      SUBSYSTEM=="block", ENV{DM_UUID}=="CRYPT-*", ENV{SYSTEMD_READY}="1"
+    '')
+  ];
 }
