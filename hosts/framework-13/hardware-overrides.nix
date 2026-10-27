@@ -41,7 +41,7 @@
   services.hardware.bolt.enable = true;
 
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="usb", ATTR{power/wakeup}="disabled"
+    ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{power/wakeup}="disabled"
   '';
 
   boot.initrd.services.udev.packages = [

@@ -16,6 +16,8 @@ let
         pkgs.niri
         pkgs.bash
         pkgs.coreutils
+        # idle is handled by swayidle
+        (pkgs.writeShellScriptBin "cosmic-idle" "exec sleep infinity")
       ]
     }:$PATH
 
