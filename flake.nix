@@ -108,6 +108,18 @@
             # removable instead; the booted VM still finds the ESP fallback
             # path. Same adjustment disko makes for grub in its tests.
             boot.loader.limine.efiInstallAsRemovable = nixpkgs.lib.mkForce true;
+            # Reproduce the LUKS udev race that bricked real boots: udev can
+            # mark the unlocked dm-crypt device SYSTEMD_READY=0 while it is
+            # locked, so systemd's device unit never becomes ready and the
+            # root mount hangs. QEMU timing never triggers it naturally, so
+            # force it: this rule runs before A0-luks-ready.rules (the fix),
+            # so a config carrying the fix boots anyway and one without it
+            # hangs exactly like the real machine did.
+            boot.initrd.services.udev.packages = [
+              (pkgs.writeTextDir "etc/udev/rules.d/00-simulate-luks-race.rules" ''
+                SUBSYSTEM=="block", ENV{DM_UUID}=="CRYPT-*", ENV{SYSTEMD_READY}="0"
+              '')
+            ];
           };
           # No bootCommands/extraTestScript: testBoot's built-in
           # wait_for_unit("local-fs.target") is the whole check. It proves the
