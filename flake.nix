@@ -99,7 +99,15 @@
           # the generic-guest path disko sets up by default is bypassed by
           # extendModules, so provide it here.
           extraSystemConfig = {
+            # The LUKS test keyfile must be in the installed system's initrd;
+            # the generic-guest path disko sets up by default is bypassed by
+            # extendModules, so provide it here.
             boot.initrd.secrets."/tmp/secret.key" = pkgs.writeText "secret.key" "secretsecret";
+            # The bootloader is installed from inside the installer VM, which
+            # has no EFI variables, so efibootmgr would fail. Install as
+            # removable instead; the booted VM still finds the ESP fallback
+            # path. Same adjustment disko makes for grub in its tests.
+            boot.loader.limine.efiInstallAsRemovable = nixpkgs.lib.mkForce true;
           };
           bootCommands = ''
             machine.wait_for_console_text("Reached target Local File Systems", timeout=1800)
