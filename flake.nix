@@ -109,12 +109,15 @@
             # path. Same adjustment disko makes for grub in its tests.
             boot.loader.limine.efiInstallAsRemovable = nixpkgs.lib.mkForce true;
           };
-          bootCommands = ''
-            machine.wait_for_console_text("Reached target Local File Systems", timeout=1800)
-          '';
-          extraTestScript = ''
-            machine.wait_for_unit("multi-user.target")
-          '';
+          # No bootCommands/extraTestScript: testBoot's built-in
+          # wait_for_unit("local-fs.target") is the whole check. It proves the
+          # boot sequence (bootloader -> initrd -> LUKS unlock -> btrfs
+          # mounts -> switch root) and waits on nothing else, so services
+          # that can't start without the real hardware (fw-fanctrl, fprintd,
+          # system76-power, ...) neither fail the test nor slow it down:
+          # wait_for_console_text scans the whole (huge) serial log on every
+          # poll and is pathologically slow under TCG, and SSH unit waits add
+          # more surface to hang for no extra boot-sequence coverage.
         };
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
