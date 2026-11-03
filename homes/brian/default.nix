@@ -28,9 +28,9 @@
     inputs.subtui.packages.${pkgs.system}.subtui
     mpv
     vesktop
-    obsidian
+    pkgs.unstable.obsidian
     evolution
-    godot
+    godot-mono
     bitwarden-desktop
     # coding
     uv
