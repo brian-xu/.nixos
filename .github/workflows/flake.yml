@@ -2,7 +2,7 @@ name: update-flake-lock
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
-    - cron: '30 5 * * *'
+    - cron: '44 0 * * *'
       timezone: "America/Los_Angeles"
 
 jobs:
@@ -28,4 +28,4 @@ jobs:
         if: ${{ steps.update_flake.outputs.pull-request-number != '' }}
         run: gh pr merge --auto --merge "${{ steps.update_flake.outputs.pull-request-number }}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }} 
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}

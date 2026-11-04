@@ -40,6 +40,8 @@
     just
     nodejs_22
     pkgs.unstable.mistral-vibe
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.treefmt
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.csharpier
   ];
 
   programs.git = {

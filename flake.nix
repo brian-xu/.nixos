@@ -20,6 +20,10 @@
     niri.url = "github:sodiboo/niri-flake";
     subtui.url = "github:MattiaPun/SubTUI";
     latchshot.url = "github:so1ve/latchshot";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -32,10 +36,31 @@
       sops-nix,
       disko,
       niri,
+      treefmt-nix,
       ...
     }@inputs:
     let
       lib = nixpkgs.lib.extend (_: _: import ./lib { inherit (nixpkgs) lib; });
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      csharpier = pkgs.writeShellApplication {
+        name = "csharpier";
+        runtimeInputs = [
+          pkgs.dotnet-sdk
+          pkgs.csharpier
+        ];
+        text = ''
+          csharpier "$@"
+        '';
+      };
+      treefmt =
+        (treefmt-nix.lib.evalModule pkgs {
+          projectRootFile = ".git/config";
+          programs.nixfmt.enable = true;
+          programs.csharpier = {
+            enable = true;
+            package = csharpier;
+          };
+        }).config.build.wrapper;
     in
     {
       nixosConfigurations = {
@@ -69,6 +94,10 @@
         };
       };
 
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+      formatter.x86_64-linux = treefmt;
+
+      packages.x86_64-linux = {
+        inherit treefmt csharpier;
+      };
     };
 }

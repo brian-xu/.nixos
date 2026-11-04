@@ -13,6 +13,9 @@ in
     package = zed;
 
     extensions = [
+      "csharp"
+      "gdscript"
+      "latex"
       "nix"
       "toml"
       "dockerfile"
@@ -102,6 +105,14 @@ in
             path = lib.getExe pkgs.terraform-ls;
           };
         };
+
+        roslyn = {
+          binary = {
+            env = {
+              DOTNET_ROOT = "${pkgs.dotnetCorePackages.runtime_10_0}/share/dotnet";
+            };
+          };
+        };
       };
     };
   };
@@ -110,6 +121,7 @@ in
   home.packages = [
     pkgs.nil
     pkgs.terraform-ls
+    pkgs.dotnetCorePackages.runtime_10_0
     (pkgs.runCommand "zed-cli" { } ''
       mkdir -p $out/bin
       ln -s ${lib.getExe zed} $out/bin/zed
