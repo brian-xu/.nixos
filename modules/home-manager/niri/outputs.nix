@@ -1,6 +1,6 @@
 {
   programs.niri.settings.outputs = {
-    "DP-10" = {
+    "DP-4" = {
       mode = {
         width = 1920;
         height = 1080;
@@ -12,7 +12,7 @@
         y = 0;
       };
     };
-    "DP-12" = {
+    "DP-3" = {
       mode = {
         width = 1920;
         height = 1080;
