@@ -6,8 +6,13 @@
       config.allowUnfree = true;
       overlays = [
         (_: usuper: {
-          mistral-vibe = usuper.mistral-vibe.overridePythonAttrs (_: {
+          mistral-vibe = usuper.mistral-vibe.overridePythonAttrs (old: {
             doCheck = false;
+            passthru = old.passthru // {
+              vibe-rs = old.passthru.vibe-rs.overrideAttrs (vibeOld: {
+                buildInputs = vibeOld.buildInputs ++ [ usuper.aws-lc ];
+              });
+            };
           });
         })
       ];
