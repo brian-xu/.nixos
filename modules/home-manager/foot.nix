@@ -3,7 +3,7 @@
   programs.foot.settings = {
     main = {
       term = "xterm-256color";
-      font = "Inconsolata Nerd Font:size=12";
+      font = "MonaspiceNe Nerd Font:size=12";
       pad = "25x20";
       shell = ''bash -c "krabby random && exec bash"'';
     };

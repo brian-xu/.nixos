@@ -19,7 +19,7 @@
     # util
     pkg-config
     nixfmt
-    nerd-fonts.inconsolata
+    nerd-fonts.monaspace
     ffmpeg
     krabby
     bubblemail

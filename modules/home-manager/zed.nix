@@ -81,7 +81,7 @@ in
         enabled = false;
       };
 
-      buffer_font_family = "Inconsolata Nerd Font";
+      buffer_font_family = "MonaspiceNe Nerd Font";
       theme = "One Dark";
 
       # --- nix integration ---
