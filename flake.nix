@@ -20,10 +20,6 @@
     niri.url = "github:sodiboo/niri-flake";
     subtui.url = "github:MattiaPun/SubTUI";
     latchshot.url = "github:so1ve/latchshot";
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -36,7 +32,8 @@
       sops-nix,
       disko,
       niri,
-      treefmt-nix,
+      subtui,
+      latchshot,
       ...
     }@inputs:
     let
@@ -52,15 +49,6 @@
           csharpier "$@"
         '';
       };
-      treefmt =
-        (treefmt-nix.lib.evalModule pkgs {
-          projectRootFile = ".git/config";
-          programs.nixfmt.enable = true;
-          programs.csharpier = {
-            enable = true;
-            package = csharpier;
-          };
-        }).config.build.wrapper;
     in
     {
       nixosConfigurations = {
@@ -94,10 +82,8 @@
         };
       };
 
-      formatter.x86_64-linux = treefmt;
-
       packages.x86_64-linux = {
-        inherit treefmt csharpier;
+        inherit csharpier;
       };
     };
 }

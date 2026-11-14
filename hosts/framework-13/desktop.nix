@@ -19,5 +19,5 @@
     ];
   };
   security.pam.services.login.fprintAuth = true;
-  security.pam.services.login.rules.auth.fprintd.settings.timeout = 30;
+  security.pam.services.login.rules.auth.fprintd.settings.timeout = 10;
 }
