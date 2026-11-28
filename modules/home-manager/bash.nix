@@ -27,6 +27,10 @@ in
     enable = true;
     enableCompletion = true;
 
+    shellAliases = {
+      caffeinate = ''systemd-inhibit --what=idle:sleep --why="Manual pause" sleep infinity'';
+    };
+
     historyFile = "${config.xdg.dataHome}/bash/history";
     historySize = 100000;
     historyFileSize = 100000;
